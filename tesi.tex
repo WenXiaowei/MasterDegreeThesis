@@ -1,0 +1,125 @@
+% I seguenti commenti speciali impostano:
+% 1. 
+% 2. PDFLaTeX come motore di composizione;
+% 3. tesi.tex come documento principale;
+% 4. il controllo ortografico italiano per l'editor.
+
+% !TEX encoding = UTF-8
+% !TEX TS-program = pdflatex
+% !TEX root = tesi.tex
+% !TEX spellcheck = it-IT
+
+\documentclass[11pt,                    % corpo del font principale
+    a4paper,                 % carta A4
+    twoside,                 % impagina per fronte-retro
+    openright,               % inizio capitoli a destra
+    english,
+    italian,
+    ctexart,
+]{book}
+
+%**************************************************************
+% Importazione package
+%************************************************************** 
+%\usepackage{amsmath,amssymb,amsthm}    % matematica
+\usepackage[UTF8]{ctex}
+\usepackage[T1]{fontenc}                % codifica dei font:
+% NOTA BENE! richiede una distribuzione *completa* di LaTeX
+
+\usepackage[utf8]{inputenc}             % codifica di input; anche [latin1] va bene
+% NOTA BENE! va accordata con le preferenze dell'editor
+
+\usepackage[english, italian]{babel}    % per scrivere in italiano e in inglese;
+% l'ultima lingua (l'italiano) risulta predefinita
+
+\usepackage{bookmark}                   % segnalibri
+
+\usepackage{caption}                    % didascalie
+
+\usepackage{chngpage,calc}              % centra il frontespizio
+
+\usepackage{csquotes}                   % gestisce automaticamente i caratteri (")
+
+\usepackage{emptypage}                  % pagine vuote senza testatina e piede di pagina
+
+\usepackage{epigraph}            % per epigrafi
+
+\usepackage{eurosym}                    % simbolo dell'euro
+
+%\usepackage{indentfirst}               % rientra il primo paragrafo di ogni sezione
+
+\usepackage{graphicx}                   % immagini
+
+\usepackage{hyperref}                   % collegamenti ipertestuali
+
+\usepackage[binding=5mm]{layaureo}      % margini ottimizzati per l'A4; rilegatura di 5 mm
+
+
+\usepackage{microtype}                  % microtipografia
+
+\usepackage{mparhack,fixltx2e,relsize}  % finezze tipografiche
+
+\usepackage{nameref}                    % visualizza nome dei riferimenti                                      
+
+\usepackage[font=small]{quoting}        % citazioni
+
+%\usepackage{subfig}                     % sottofigure, sottotabelle
+
+\usepackage[italian]{varioref}          % riferimenti completi della pagina
+
+\usepackage[dvipsnames]{xcolor}         % colori
+\usepackage{formattazione}
+
+\usepackage{booktabs}                   % tabelle                                       
+\usepackage{tabularx}                   % tabelle di larghezza prefissata                                    
+\usepackage{longtable}                  % tabelle su più pagine                                        
+\usepackage{ltxtable}                   % tabelle su più pagine e adattabili in larghezza
+
+\usepackage[toc, acronym]{glossaries}   % glossario
+% per includerlo nel documento bisogna:
+% 1. compilare una prima volta tesi.tex;
+% 2. eseguire: makeindex -s tesi.ist -t tesi.glg -o tesi.gls tesi.glo
+% 3. eseguire: makeindex -s tesi.ist -t tesi.alg -o tesi.acr tesi.acn
+% 4. compilare due volte tesi.tex.
+
+\usepackage[backend=biber,style=numeric-comp,hyperref,backref]{biblatex}
+% eccellente pacchetto per la bibliografia;
+% produce uno stile di citazione autore-anno;
+% lo stile "numeric-comp" produce riferimenti numerici
+% per includerlo nel documento bisogna:
+% 1. compilare una prima volta tesi.tex;
+% 2. eseguire: biber tesi
+% 3. compilare ancora tesi.tex.
+
+\input{tesi-config}                     % file con le impostazioni personali
+\raggedbottom
+\begin{document}
+%**************************************************************
+% Materiale iniziale
+%**************************************************************
+    \frontmatter
+    \input{pages/frontespizio}
+    \input{pages/colophon}
+    \input{pages/dedica}
+    \input{pages/sommario}
+    \input{pages/ringraziamenti}
+    \input{pages/indici}
+    \cleardoublepage
+
+%**************************************************************
+% Materiale principale
+%**************************************************************
+    \mainmatter
+    \input{./chapters/1_0_introduction.tex}             % Introduzione
+    \input{./chapters/2_0.tex}             % Kick-Off
+    \input{./chapters/3_0.tex}             % Concept Preview
+    \input{./chapters/4_0.tex}             % Product Prototype
+    \input{./chapters/5_0.tex}             % Product Design Freeze e SOP
+    \input{./chapters/6_0.tex}             % Conclusioni
+%**************************************************************
+% Materiale finale
+%**************************************************************
+    \backmatter
+    \printglossaries
+    \input{./pages/bibliografia}
+\end{document}

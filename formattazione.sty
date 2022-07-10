@@ -1,0 +1,79 @@
+\ProvidesPackage{formattazione}
+
+% pacchetti
+
+%\usepackage{geometry}
+%\usepackage[italian]{babel}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%
+%\usepackage{tabularx}
+%\usepackage{booktabs} % permette di poter usare delle liste nelle tabelle
+%\usepackage{longtable} % una tabella può continuare su più pagine
+%\usepackage{multirow} % utile per visualizzare una cella su più righe
+
+%\usepackage[colorlinks=true]{hyperref} % colori dei link
+
+\usepackage{graphbox}
+
+\usepackage{fancyhdr} % header
+\usepackage{lastpage} % info sul # dell'ultima pagina del documento
+
+\usepackage{float} % permette di inserire un # qualsiasi di figure fluttuanti
+\usepackage{subcaption} % sottofigure numerabili
+
+\usepackage{amsmath} % formule matematiche
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+
+\usepackage{array} % colonne custom per tabelle
+
+%\usepackage{tocloft} % opzioni table of contents
+
+%\usepackage{appendix} % aggiunge dei comandi per l'appendice
+%\usepackage{parskip} % aiuta LaTeX a trovare il miglior stile per i page break
+
+\usepackage{listings} % permette di inserire degli spezzoni di codice
+
+% impostazioni generali e dei pacchetti
+
+\setcounter{secnumdepth}{5} % numera i sottoparagrafi
+\setcounter{tocdepth}{5} % aggiunge all'indice i sottoparagrafi
+
+% colonne custom
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+%\renewcommand\cftsecleader{\cftdotfill{\cftdotsep}} % indice con i puntini
+
+%bullet delle liste
+
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\labelitemiii}{-}
+\renewcommand{\labelitemiv}{$\cdot$}
+\newcommand{\tutorAziendale}{\textit{Alessandro Proscia}}
+\hypersetup{ % colori dei link
+    colorlinks=true,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black, % colore dei link interni
+    urlcolor=blue  % colore dei link esterni
+}
+
+\renewcommand{\labelitemii}{$\circ$} % Per avere le liste di secondo livello con i bullet a cerchio
+
+
+
+%\newcommand{\glo}[1]{\textit{#1}\ped{G}}
+
+\newcommand{\idRequisiti}[1]{{\stepcounter{rowcount}R-\therowcount-#1 \hspace*{\tabcolsep}}}
+\newcommand{\idRequisitiSub}[1]{{\stepcounter{subCount}R-\therowcount.\thesubCount-#1 \hspace*{\tabcolsep}}}
+\newcommand{\idTest}[1]{{\stepcounter{rowcount}#1-\therowcount \hspace*{\tabcolsep}}}
+
+
+
