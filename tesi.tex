@@ -8,13 +8,12 @@
 % !TEX TS-program = pdflatex
 % !TEX root = tesi.tex
 % !TEX spellcheck = it-IT
-
+%!TEX program = xelatex
 \documentclass[11pt,                    % corpo del font principale
     a4paper,                 % carta A4
     twoside,                 % impagina per fronte-retro
     openright,               % inizio capitoli a destra
     english,
-    italian,
     ctexart,
 ]{book}
 
@@ -29,7 +28,7 @@
 \usepackage[utf8]{inputenc}             % codifica di input; anche [latin1] va bene
 % NOTA BENE! va accordata con le preferenze dell'editor
 
-\usepackage[english, italian]{babel}    % per scrivere in italiano e in inglese;
+\usepackage[english]{babel}    % per scrivere in italiano e in inglese;
 % l'ultima lingua (l'italiano) risulta predefinita
 
 \usepackage{bookmark}                   % segnalibri
@@ -65,7 +64,7 @@
 
 %\usepackage{subfig}                     % sottofigure, sottotabelle
 
-\usepackage[italian]{varioref}          % riferimenti completi della pagina
+\usepackage[english]{varioref}          % riferimenti completi della pagina
 
 \usepackage[dvipsnames]{xcolor}         % colori
 \usepackage{formattazione}
@@ -111,11 +110,11 @@
 %**************************************************************
     \mainmatter
     \input{./chapters/1_0_introduction.tex}             % Introduzione
-    \input{./chapters/2_0.tex}             % Kick-Off
-    \input{./chapters/3_0.tex}             % Concept Preview
-    \input{./chapters/4_0.tex}             % Product Prototype
+    \input{./chapters/2_0_internship_description.tex}             % Kick-Off
+    \input{./chapters/6_0_datasets.tex}             % Concept Preview
+    \input{./chapters/3_0_theoretical_foundations.tex}             % Product Prototype
     \input{./chapters/5_0.tex}             % Product Design Freeze e SOP
-    \input{./chapters/6_0.tex}             % Conclusioni
+    \input{./chapters/7_0.tex}             % Conclusioni
 %**************************************************************
 % Materiale finale
 %**************************************************************
