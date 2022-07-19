@@ -31,5 +31,3 @@ pdflatex -output-directory=%BUILD_DIR% %MAIN%
 call clean.bat
 
 @echo ---------------------------- END -----------------------------
-
-set /p keys=Done...
