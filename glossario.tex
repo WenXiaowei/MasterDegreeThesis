@@ -4,18 +4,7 @@
 \renewcommand{\acronymname}{Acronimi e abbreviazioni}
 %**************************************************************
 
-\newacronym[description={\glslink{apig}{Application Programming Interface}}]
-{api}{API}{Application Programming Interface}
-\newglossaryentry{apig}
-{
-name=\glslink{api}{API},
-text= Application Programming Interface,
-sort= api,
-description={in informatica con il termine \emph{Application Programming Interface API} (interfaccia di programmazione di un'applicazione) si indica ogni insieme di procedure disponibili al programmatore, di solito raggruppate a formare un set di strumenti specifici per l'espletamento di un determinato compito all'interno di un certo programma.
-La finalità è ottenere un'astrazione, di solito tra l'hardware e il programmatore o tra software a basso e quello ad alto livello semplificando così il lavoro di programmazione}
-}
-
-\newacronym[description={\glslink{mha}{Multi-Head attention}}]
+\newacronym[description={\glslink{mhag}{Multi-Head attention}}]
 {mha}{MHA}{Multi-Head Attention}
 \newglossaryentry{mhag}
 {
@@ -24,7 +13,7 @@ La finalità è ottenere un'astrazione, di solito tra l'hardware e il programmat
     sort= mha,
     description={Multi head attention is .}
 }
-\newacronym[description={\glslink{slam}{Simultaneous Localization and Mapping}}]
+\newacronym[description={\glslink{slamg}{Simultaneous Localization and Mapping}}]
 {slam}{SLAM}{Simultaneous Localization and Mapping}
 \newglossaryentry{slamg}
 {
@@ -32,6 +21,35 @@ La finalità è ottenere un'astrazione, di solito tra l'hardware e il programmat
     text= Simultaneous Localization and Mapping,
     sort= slam,
     description={Slam is a computational problem of constructing or updating a map of an unknown environment while simultaneously keeping track of an agent's location within it.}
+}
+
+\newacronym[description={\glslink{imug}{Inertial measurement unit}}]
+{imu}{IMU}{Inertial measurement unit}
+\newglossaryentry{imug}
+{
+    name=\glslink{imu}{IMU},
+    text= Inertial measurement unit,
+    sort= imu,
+    description={Inertial measurement unit is a device that measures the motion of an object in space.} % todo add/fix the definition
+}
+
+\newacronym[description={\glslink{nng}{Neural network}}]
+{nn}{NN}{Neural network}
+\newglossaryentry{nng}
+{
+    name=\glslink{nn}{NN},
+    text= Neural network,
+    sort= nn,
+    description={Neural network models are a subset of Machine Learning models. NN is a network based on the concept of artificial neuron and neurons are organized in layers. The aim of the network is to mimic the data that is used in the training time. }
+}
+\newacronym[description={\glslink{mlpg}{Multi layer perceptron}}]
+{mlp}{MLP}{Multi Layer Perceptron}
+\newglossaryentry{mlpg}
+{
+    name=\glslink{mlp}{MLP},
+    text= Multi Layer Perceptron,
+    sort= mlp,
+    description={Multi layer perceptron is ...}
 }
 %**************************************************************
 % Glossario
@@ -54,6 +72,13 @@ La finalità è ottenere un'astrazione, di solito tra l'hardware e il programmat
     text=vanishing gradient problem,
     sort=vanishing gradient problem,
     description={When there are more layers in the network, the value of the product of derivative decreases until at some point the partial derivative of the loss functions approaches a value close to zero, and the partial derivative vanishes.}
+}
+\newglossaryentry{auto-regressive}
+{
+    name=\glslink{auto-regressive}{Auto-regressive},
+    text=auto-regressive,
+    sort=auto-regressive,
+    description={A model is defined as auto-regressive when the next predictions depends on the previous ones.} % todo add/fix the definition
 }
 
 %\newglossaryentry{}

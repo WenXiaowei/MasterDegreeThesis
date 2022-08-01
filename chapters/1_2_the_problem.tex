@@ -1,1 +1,23 @@
 \section{Problem}\label{sec:problem}
+The term "odometry" originated from two Greek works \emph{hodos} (meaning "journery" or "travel") and \emph{metron} (meaning "measure").
+This derivation is related to the estimation of the change in a robot's pose (translation and rotation) over time.
+Mobile robot use data from motion sensor to estimate their position relative to their initial location, this is called odometry.
+VO is a technique used to localize a robot by using only a stream of images acquired from a single or multiple camera.
+There are different ways to classify the typology of Visual Odometry:
+\begin{itemize}
+    \item based on the camera setup:
+        \begin{itemize}
+            \item Monocular VO: using only one camera;
+            \item Stereo VO: using two cameras;
+        \end{itemize}
+    \item based on the information:
+        \begin{itemize}
+            \item Feature based method: which extracts the image feature points and tracks them in the image sequence;
+            \item Direct method: a novel method which uses the pixel intensity in the image sequence directly as visual input.
+            \item Hybrid method: which combines the two methods.
+        \end{itemize}
+    \item Visual inertial odometry: if a \gls{imu} is used within the VO system, it is commonly referred to as Visual inertial odometry.
+\end{itemize}
+We can represent the pose in different ways, for example: \textbf{euler angles}, \textbf{quaternions}, \textbf{SO(3)}, \textbf{rotation matrices} combined with \textbf{translation vectors}.
+
+The goal is to create a \gls{nn}, based on the transformer presented by Vaswani et al.~\cite{transformer_paper}, which is able to estimate the camera's pose relative to the initial one, in this project given sequence of images.
