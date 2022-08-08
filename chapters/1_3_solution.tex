@@ -14,9 +14,9 @@ We tried following approaches to feed the data:
 
 We used these input strategies to feed the sequence, we tried different variants of models:
 \begin{itemize}
-    \item Using the different version of ResNet (producing embedding of size 512 and 2048) model as feature extractor attached to the transformer with only encoder part.
+    \item Using the different version of ResNet (producing \gls{embedding} of size 512 and 2048) model as feature extractor attached to the transformer with only encoder part.
     \item Using a \gls{mlp} for the images divided into patches to extract the features, and concatenating all the features as a single embedding then feed it into the only-encoder version of transformer.
     \item Using a MLP for the images divided into patches to extract the features, and concatenating all the features as a single embedding then feed it into the encoder-decoder version of transformer.
     \item Using the different version of ResNet model as feature extractor attached to the transformer with encoder and decoder.
-    \item The same model as the previous but implementing it in \gls{auto-regressive} mode.
+    \item The same model as the previous but implemented in \gls{auto-regressive} mode.
 \end{itemize}
