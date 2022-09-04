@@ -7,9 +7,10 @@ To solve the problem of visual odometry, we tried different approaches to feed t
 We tried following approaches to feed the data:
 \begin{itemize}
     \item Feeding the sequence into the model directly and presenting the pose as \emph{euler angles}.
-    \item Feeding the sequence into the model directly and presenting the pose as \emph{rotation matrix} and \emph{translation vector}.
+    \item Feeding the sequence into the model directly and presenting the pose as \emph{rotation matrix} so with twelve numbers and \emph{translation vector}.
     \item Feeding the sequence into the model where the first frame is the origin of the reference frame and presenting the pose as \emph{euler angles}.
     \item Feeding the sequence into the model where the first frame is the origin of the reference frame and presenting the pose as \emph{rotation matrix} and \emph{translation vector}.
+    \item Feeding the sequence into the model where the first frame is the origin of the reference frame, and using the auto-regressive model to predict the pose.
 \end{itemize}
 
 We used these input strategies to feed the sequence, we tried different variants of models:

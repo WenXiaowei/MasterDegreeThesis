@@ -21,11 +21,12 @@ The encoder-decoder version we achieved the same results as the previous version
 % %**************************************************************
 
 \subsection{Autoregressive models}\label{subsec:autoregressive-model}
-We implemented only the encoder-decoder version of the transformer in the autoregressive way, and the results are similar to those of full-sequence predictions.
-However, the model was \textbf{not} able to learn the simplest sequence in overfitting.
+We implemented only the encoder-decoder version of the transformer in the autoregressive way, and most of the time the prediction of the network during the training on seq 3 is just a straight line.
+So the model is \textbf{not} able to predict the simplest sequence in overfitting.
 The model could not predict any reasonable trajectory, predicting only a linear trajectory as the follow:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/1_4_autoregressive_prediction}
     \caption{Bad prediction sequence 3 of autoregressive model}\label{fig:autoregressive-seq-3}
 \end{figure}
+Although after more than one hundred epochs of training, the network cannot understand the goal, this could be caused by the loss used.
