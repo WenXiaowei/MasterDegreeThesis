@@ -1,7 +1,7 @@
 \section{Literature protocol}\label{sec:literature-protocol}
 
 In the literature, when we need to develop a new project, there is a protocol which should be followed to increase the possibility of success.
-This protocol is composed by different steps, the success of every step is fundamental for the continue of the next steps.
+This protocol is composed by a sequence of steps, the success of every step is fundamental for the continue of the next steps.
 The steps are:
 \begin{enumerate}
     \item Study of the state of the art and deepening about the other projects' results.
@@ -11,6 +11,7 @@ The steps are:
     \item Build the model and use it as baseline.
     \item Over-fit the model with a single prediction target class, in our case a single sequence to verify the network capacity.
     \item Over-fit the model with two and more prediction target classes, in this way, we are verifying that the model can learn more than one target, which is useful for us to understand which is the limit of the network in term of capacity.
-    \item Train the model with the whole dataset, trying to improve the results achieved by the baseline, by setting the hyper-parameters or by changing the model.
+    \item Train the model with the whole dataset, trying to improve the results achieved by the baseline, by changing the hyper-parameters or by changing the model.
     \item Fine-tuning, perform a fine tuning of the neural network can squeeze the last drops of performance of the network.
+    \item Compare the results with the state of the art,
 \end{enumerate}
