@@ -3,11 +3,10 @@
 % %**************************************************************
 
 \subsection{Full sequence prediction}\label{subsec:full-sequence-prediction}
-The different models we achieved different results, but the most important result is that we settled down an important baseline for the future development of this system.
-After a few trials with few models, which produced some circular trajectories, we achieved
-The encoder-only version of transformer, and feeding the \textit{sequence 3} of Kitti (for more details \S~\ref{sec:kitti}) where the first image is considered as origin, we showed that the model is able to learn a single sequence in overfitting, but fails when trying to overfit a more complex sequence.
+With different models a variety of results are achieved, but the most important result is that an important baseline for the future development of this kind of systems has been settled down.
+After a few trials with few models, which produced some circular trajectories, with the encoder-only version of transformer, and feeding the \textit{sequence 3} of Kitti (for more details \S~\ref{sec:kitti}) where the first image is considered as origin, we showed that the model is able to learn a single sequence in over-fitting, but fails when trying to over-fit a more complex sequence.
 
-The encoder-decoder version we achieved the same results as the previous version, but the model was able to learn the also the \textit{sequence 7} of Kitti, but it fails when we train the model with both \textit{sequence 3} and \textit{sequence 7}.
+The encoder-decoder version achieved the same results as the previous version, but the model was able to learn also the \textit{sequence 7} of Kitti, but it fails when trained with both \textit{sequence 3} and \textit{sequence 7}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/1_4_well_predicted_seq_3}
@@ -22,11 +21,11 @@ The encoder-decoder version we achieved the same results as the previous version
 
 \subsection{Autoregressive models}\label{subsec:autoregressive-model}
 We implemented only the encoder-decoder version of the transformer in the autoregressive way, and most of the time the prediction of the network during the training on seq 3 is just a straight line.
-So the model is \textbf{not} able to predict the simplest sequence in overfitting.
+So the model is \textbf{not} able to predict the simplest sequence in over-fitting.
 The model could not predict any reasonable trajectory, predicting only a linear trajectory as the follow:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/1_4_autoregressive_prediction}
     \caption{Bad prediction sequence 3 of autoregressive model}\label{fig:autoregressive-seq-3}
 \end{figure}
-Although after more than one hundred epochs of training, the network cannot understand the goal, this could be caused by the loss used.
+Although the model has been trained for more than two hundred epochs, the network cannot understand the goal, and this maybe is due to the loss function.
