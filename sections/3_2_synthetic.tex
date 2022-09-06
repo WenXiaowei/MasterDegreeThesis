@@ -61,7 +61,7 @@ def check_pose(c2w_m, special_obj, bvh_tree):
 \end{lstlisting}
 
 
-But when the new position is to far away from the old position, the rotation of the camera assumes a wrong value during the transition, because it rotates counter-clockwise instead of clockwise, or vice-versa.
+But when the new position is too far away from the old position, the rotation of the camera assumes a wrong value during the transition, because it rotates counter-clockwise instead of clockwise, or vice-versa.
 For example:
 If we sample the camera position from a disk at 0, 90, 180, 270 degrees, the rotations should be as in the figure 3.1:
 \begin{figure}[H]

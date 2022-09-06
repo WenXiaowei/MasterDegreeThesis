@@ -11,21 +11,15 @@ The \gls{cnn} is a class of artificial neural network, it is used in almost ever
 The CNN take an input image, assign importance (learnable weights and biases) and process the input image by using the convolution operation extracting features.
 There are two important parameter in the convolution operation, the kernel size and the stride.
 The kernel is a matrix which is used to perform the convolution operation, the stride is the number of pixels the kernel slides over the input image to produce a new pixel.
-With stride we can control the size of the output image, if the stride is equal to 1, the output image will have the same size of the input image, if the stride is equal to 2, the output image will have half the size of the input image.
+With stride, we can control the size of the output image, if the stride is equal to 1, the output image will have the same size of the input image, if the stride is equal to 2, the output image will have half the size of the input image.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/2_convolutions}
     \caption{Convolutions: every single element of the output feature map is obtained by summing the element-wise product between the elements from the input feature map and the kernel. The whole feature map is then obtained sliding the kernel over the input feature map.}
     \label{fig:figure-convolutions}
 \end{figure}
-More concisely, given the input image $I$ and the kernel $K$, output feature map $O$, the convolution operation is defined as:
-\begin{figure}[H]
-    \[O_{ij} = \sum_{ij} I_{ij} * K_{ij}\]
-    \caption{Convolution operation expression.}
-    \label{fig:expression-convolution}
-\end{figure}
 Increasing the number of layers and combining the pooling layers, the CNN is able to extract more and more complex features, such as edges, lines, shapes, etc.
-Then, there are pooling layers, usually max-pooling and average pooling, which can reduce the dimensionality of the feature maps by setting strides \[>=2\], which is useful to reduce the computational cost.
+Then, there are pooling layers, usually max-pooling and average pooling, which can reduce the dimensionality of the feature maps by setting strides $>=2$, which is useful to reduce the computational cost.
 For example, max-pooling is computed as showed in the image:
 \begin{figure}[H]
     \centering
@@ -42,5 +36,45 @@ Another important component is the activation function, \gls{relu} is the most u
 \end{figure}
 Which guarantees the non-linearity of the network, allowing the network to learn more complex features.
 These are the main components of a CNN, but there are other components, such as batch normalization and dropout which are used to improve the performance of the network reducing the over-fitting.
+
+Currently, the most used CNN architecture is the ResNet which will be used in the project as feature-extratctor.
+
 \subsection{Transformer}\label{subsec:transformer}
-% https://jalammar.github.io/illustrated-transformer/
+The transformer architecture is a class of neural network architecture, born for the task of machine translation, but it has been used in many other vision tasks.
+
+As introduced in ~\cite{transformer_paper}, the Transformer is a model architecture based entirely on attention mechanism.
+The first step of attention mechanism is to compute the Q, K and V vectors, by multiplying the input vector $x$ by the weight matrices $W_q$, $W_k$ and $W_v$.
+Then, the attention weights are computed by using the scaled dot product attention, which is the softmax of the dot product between the query and the key vectors divided by the square root of the dimensionality of the key vector.
+Finally, the attention weights are multiplied by the value vector to obtain the output vector.
+The output vector is then passed through a feed-forward neural network, which is composed by two linear layers with ReLU activation function, added to the input vector and normalized by the layer normalization.
+The self-attention module is then repeated $N$ times, where $N$ is the number of layers.
+
+The whole process can be summarized as:
+\begin{figure}[H]
+    \[Attention(Q, K, V) = softmax\left(\frac{QK^T}{\sqrt{d_k}}\right)V\]
+    \caption{Scaled dot product attention.}
+    \label{fig:expression-scaled-dot-product}
+\end{figure}
+And the graphical representation is:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/2_attention}
+    \caption{Attention mechanism: (Left) scaled-dot-product. (right) Multi-head attention which is obtained by combining many scaled-dot-product attention.}
+    \label{fig:figure-encoder-structure}
+\end{figure}
+
+Another important notion introduced is the multi-head attention, which is obtained by using more scaled dot product attention, each one with different weights, and concatenating each output vectors.
+Then, using a slightly modified version of the self-attention module, the encoder module is used as decoder, which takes as input also the output sequence, and repeating the number of encoder and decoder modules, we obtain the whole transformer architecture, as follows:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./images/2_transformer}
+    \caption{Transformer architecture: the encoder and decoder modules are composed by a self-attention module and a feed-forward neural network repeated $N$ times.}
+    \label{fig:figure-transformer-architecture}
+\end{figure}
+
+With this architecture the new state-of-the-art results have been achieved in Natural Language Processing, especially in machine translation.
+
+Then the adapted version applied to vision tasks also brought very good results, such as in object detection, image captioning, etc.
+
