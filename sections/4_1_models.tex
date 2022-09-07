@@ -1,12 +1,14 @@
 \section{Models}\label{sec:encoder}
+We designed different models, each one with a different architecture.
+These models will be used to test the different prediction strategies.
 \subsection{encoder-only model}\label{subsec:encoder-only-model}
 With only-encoder, we mean that the network has only the encoder part, the decoder part is not present.
 
-We tried to use the encoder part of the network to predict the pose of the camera, using both ResNet18 and ResNet50 as encoder.
-The main different of ResNet18 and ResNet50 is the number of the output embedding, in fact, ResNet18 has output embedding dimension of 512, while ResNet50 has output embedding dimension of 2048.
-We also tried with different depth of the network, in fact, we tried with \textbf{6} and \textbf{12} layers of encoder.
-Then, to obtain prediction, we used a fully connected layer with 6 output neurons, one for each degree of freedom of the camera pose, we also tried an MLP that predicts the 12 numbers of the \textit{rotation matrix} and the \textit{translation vector}.
-
+We tried to use the encoder part of the network to predict the pose of the camera, using both ResNet18 and ResNet50 as feature extractor.
+The main difference of ResNet18 and ResNet50 is the number of the output embedding, in fact, ResNet18 has output embedding dimension of 512, while ResNet50 has output embedding dimension of 2048.
+We also tried with different depth of the network, depth of \textbf{6} and \textbf{12} layers of encoder.
+Then, to obtain prediction, we used a fully connected layer to reduce the dimension of the embedding to the desired number of neuron, depending on the prediction strategy.
+In the figure 4.1 the model architecture is shown.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/4_encoder_only}
@@ -15,10 +17,9 @@ Then, to obtain prediction, we used a fully connected layer with 6 output neuron
 
 \subsection{Encoder-decoder}\label{subsec:encoder-decoder}
 
-For the encoder-decoder, we used the same encoder of the previous section, but we added a decoder part, which uses a vector parameter as \textit{memory} of the network.
+For the encoder-decoder, we used the same encoder of the previous section, but we added a decoder part, which also takes in input a vector parameter as \textit{memory} of the network.
 
 In this version of the network, we tried the same configurations of the encoder-only model but the feature extractor ResNet50, because the network requires more memory than those available on GPU.
-
 
 \begin{figure}[H]
     \centering
@@ -27,3 +28,31 @@ In this version of the network, we tried the same configurations of the encoder-
 \end{figure}
 
 \subsection{Encoder-Decoder with Auto-encoder}\label{subsec:encoder-decoder-with-auto-encoder}
+In this version of the model, we used the same encoder-decoder model of the previous section, but we added a pose auto-encoder, which given the ground-truth of the pose, it increases the dimensionality of the input to 512 or 2048 and back to the original dimensionality.
+The auto-encoder is split into two parts: first part brings the dimensionality from 6 to 512 and 2048, the second part brings the dimensionality back to 6.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/4_pose_encoder}
+    \caption{Pose auto-encoder}\label{fig:figure-pose-encoder}
+\end{figure}
+
+In the Figure 4.3, we can see the architecture of the pose auto-encoder
+
+We used the first part to create the ground-truth of the pose, the second part to get the prediction of the pose from 512 or 2048 dimensionality.
+So, the final structure of the model is shown in Figure 4.4.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/4_encoder_decoder_with_pose_autoencoder}
+    \caption{Encoder-Decoder with pose auto-encoder}\label{fig:figure-encoder-decoder-with-pose-encoder}
+\end{figure}
+
+\subsection{Encoder-Decoder in autoregressive mode}\label{subsec:encoder-decoder-in-autoregressive-mode}
+In this model, we replaced the parameter vector \textit{memory} with the output of the first part of the pose auto-encoder because the output is used to generate the ground-truth embedding used as target embedding, and the second part, as usual, is used to calculate the pose from embedding.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/4_autoregressive_model}
+    \caption{Encoder-Decoder with pose auto-encoder in autoregressive mode}\label{fig:figure-auto-regressive-model}
+\end{figure}
+
+In the figure 4.5, we can see the architecture of this model but the main difference between this model and previous ones is in the implementation of training and inference, this will be discussed in the next section.
