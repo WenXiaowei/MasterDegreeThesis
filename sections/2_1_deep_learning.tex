@@ -3,9 +3,9 @@
 Deep learning method is part of machine learning methods based on artificial neural network with representation learning.
 The learning process can be supervised, semi-supervised, or unsupervised.
 
-There is a very large variety of deep learning architectures, some of them are specialized in some fields meanwhile others have a broader usage, especially, there are Convolutional Neural Network and Transformers.
+There is a very large variety of deep learning architectures, some of them are specialized in some fields meanwhile others have a broader usage, especially, there are CNNs and Transformers.
 
-In recent years, the field of computer vision has been growing in complexity and the number of applications has been increasing, main applications are: image classification, object detection, face recognition, image segmentation, \gls{slam} and visual odometry which is a task in which the robot is able to understand where it is and how it is oriented.
+In recent years, the field of computer vision has been growing in complexity and the number of applications has been increasing, in addition to those presented in \hyperref[sec:background]{Section 1.1 Computer vision}, there are \gls{slam} and visual odometry which is a task in which the robot is able to understand where it is and how it is oriented.
 
 The development of computer vision has been a long process, the growth is favoured by the development of new hardware components and new challenges, about the latters, we have
 CIFAR-10 (\cite{cifar10_paper}), Fashion-MNIST(\cite{fashion_mnist_paper}), MS-Coco (\cite{ms_coco_paper}) and ImageNet (\cite{imagenet_paper}).
@@ -16,10 +16,10 @@ Each of these models introduced some innovations and improved the performance on
 \begin{itemize}
     \item AlexNet introduced the concept of the \emph{convolutional neural network} (CNN) and use of the separation of the models into two different GPUs.
     \item VGG introduced the concept of stage, which repeated more times, composes the model.
-    \item Inception-V1, Inception-V2 and V3 which are based on the concept of \emph{inception module} which was composed by different paths that the input has to go through to reach the output.
+    \item Inception-V1, Inception-V2 and Inception-V3 which are based on the concept of \emph{inception module} which was composed by different paths that the input has to go through to reach the output.
     \begin{figure}[H]
         \centering
-        \includegraphics[width=\textwidth]{images/1_inception_v3}
+        \includegraphics[width=\textwidth]{images/2_inception_v3}
         \caption{Inception V3 Structure}\label{fig:inception-v3}
     \end{figure}
     \item ResNet is a model that is based on the concept of \emph{residual network} which is composed by several blocks of the same type with the skip connections:
@@ -30,9 +30,9 @@ Each of these models introduced some innovations and improved the performance on
     \end{figure}
     Basically, the input of the block is added to the output before feeding it to the next block, in this way, we can avoid the \gls{vanishing gradient problem} making easier the training process.
 \end{itemize}
-After this, the computer-visionists lend the Transformer architecture (\cite{transformer_paper} from \gls{nlp}, bringing up ViT (\cite{vit_paper}) which is based on the \gls{mha} mechanism.
-A multi-head attention is a module for attention mechanisms which runs through an attention mechanism several times in parallel.
-In this way, the model can attend to the different parts of the input, forming, in this way, the cross-attention over different parts of the input.
+After this, the computer-visionists lend the Transformer architecture (\cite{transformer_paper}) from \gls{nlp}, bringing up ViT (\cite{vit_paper}) which is based on the \gls{mha} mechanism.
+A multi-head attention is a module of attention mechanisms repeated several times in parallel.
+In this way, the model can attend to different parts of the input, forming, in this way, the cross-attention over different parts of the input.
 For major details, please refer to \S2.1.2 Transformer.
 
 
@@ -41,7 +41,7 @@ The \gls{cnn} is a class of artificial neural network, it is used in almost ever
 
 The CNN take an input image, assign importance (learnable weights and biases) and process the input image by using the convolution operation extracting features.
 There are two important parameter in the convolution operation, the kernel size and the stride.
-The kernel is a matrix which is used to perform the convolution operation, the stride is the number of pixels the kernel slides over the input image to produce a new pixel.
+The kernel is a matrix which is used to perform the convolution operation, the stride is the number of pixels the kernel slides each step over the input image to produce a new pixel of the output feature map.
 With stride, we can control the size of the output image, if the stride is equal to 1, the output image will have the same size of the input image, if the stride is equal to 2, the output image will have half the size of the input image.
 \begin{figure}[H]
     \centering
@@ -49,7 +49,6 @@ With stride, we can control the size of the output image, if the stride is equal
     \caption{Convolutions: every single element of the output feature map is obtained by summing the element-wise product between the elements from the input feature map and the kernel. The whole feature map is then obtained sliding the kernel over the input feature map.}
     \label{fig:figure-convolutions}
 \end{figure}
-Increasing the number of layers and combining the pooling layers, the CNN is able to extract more and more complex features, such as edges, lines, shapes, etc.
 Then, there are pooling layers, usually max-pooling and average pooling, which can reduce the dimensionality of the feature maps by setting strides $>=2$, which is useful to reduce the computational cost.
 For example, max-pooling is computed as showed in the image:
 \begin{figure}[H]
@@ -67,11 +66,11 @@ Another important component is the activation function, \gls{relu} is the most u
 \end{figure}
 Which guarantees the non-linearity of the network, allowing the network to learn more complex features.
 These are the main components of a CNN, but there are other components, such as batch normalization and dropout which are used to improve the performance of the network reducing the over-fitting.
-
+Increasing the number of layers and combining the pooling layers, the CNN is able to extract more and more complex features, such as edges, lines, shapes, etc.
 Currently, the most used CNN architecture is the ResNet which will be used in the project as feature-extractor.
 
 \subsection{Transformer}\label{subsec:transformer}
-The transformer architecture is a class of neural network architecture, born for the task of machine translation, but it has been used in many other vision tasks.
+The transformer architecture is a class of neural network architecture, born for the task of machine translation, but it has been used in many vision tasks.
 
 As introduced in ~\cite{transformer_paper}, the Transformer is a model architecture based entirely on attention mechanism.
 The first step of attention mechanism is to compute the Q, K and V vectors, by multiplying the input vector $x$ by the weight matrices $W_q$, $W_k$ and $W_v$.
@@ -80,7 +79,7 @@ Finally, the attention weights are multiplied by the value vector to obtain the 
 The output vector is then passed through a feed-forward neural network, which is composed by two linear layers with ReLU activation function, added to the input vector and normalized by the layer normalization.
 The self-attention module is then repeated $N$ times, where $N$ is the number of layers.
 
-The whole process can be summarized as:
+The whole process can be summarized as the:
 \begin{figure}[H]
     \[Attention(Q, K, V) = softmax\left(\frac{QK^T}{\sqrt{d_k}}\right)V\]
     \caption{Scaled dot product attention.}
@@ -106,6 +105,4 @@ Then, using a slightly modified version of the self-attention module, the encode
 \end{figure}
 
 With this architecture the new state-of-the-art results have been achieved in Natural Language Processing, especially in machine translation.
-
 Then the adapted version applied to vision tasks also brought very good results, such as in object detection, image captioning, etc.
-
