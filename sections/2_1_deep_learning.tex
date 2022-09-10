@@ -59,11 +59,10 @@ For example, max-pooling is computed as showed in the image:
 \end{figure}
 With stride = 2, sliding over the input feature map and taking the maximum value of the window, the dimensionality of the feature map is reduced.
 Another important component is the activation function, \gls{relu} is the most used one, it is defined as:
-\begin{figure}[H]
-    \[ReLU(x) = \max(0, x)\]
-    \caption{ReLU activation function.}
-    \label{fig:expression-relu}
-\end{figure}
+\begin{equation}[H]
+    ReLU(x) = \max(0, x)
+    \label{eq:expression-relu}
+\end{equation}
 Which guarantees the non-linearity of the network, allowing the network to learn more complex features.
 These are the main components of a CNN, but there are other components, such as batch normalization and dropout which are used to improve the performance of the network reducing the over-fitting.
 Increasing the number of layers and combining the pooling layers, the CNN is able to extract more and more complex features, such as edges, lines, shapes, etc.
@@ -80,11 +79,10 @@ The output vector is then passed through a feed-forward neural network, which is
 The self-attention module is then repeated $N$ times, where $N$ is the number of layers.
 
 The whole process can be summarized as the:
-\begin{figure}[H]
-    \[Attention(Q, K, V) = softmax\left(\frac{QK^T}{\sqrt{d_k}}\right)V\]
-    \caption{Scaled dot product attention.}
-    \label{fig:expression-scaled-dot-product}
-\end{figure}
+\begin{equation}[H]
+    Attention(Q, K, V) = softmax\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+    \label{eq:expression-scaled-dot-product}
+\end{equation}
 And the graphical representation is:
 
 \begin{figure}[H]
