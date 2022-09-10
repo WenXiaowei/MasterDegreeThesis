@@ -11,7 +11,7 @@ Then, to obtain prediction, we used a fully connected layer to reduce the dimens
 In the figure 4.1 the model architecture is shown.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{images/4_encoder_only}
+    \includegraphics[width=\textwidth]{images/4_1_encoder_only}
     \caption{Encoder-only transformer}\label{fig:figure-encoder-only-transformer}
 \end{figure}
 
@@ -22,7 +22,7 @@ In this version of the network, we tried the same configurations of the encoder-
 The structure of the network is shown in figure 4.2.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{images/4_encoder_decoder}
+    \includegraphics[width=\textwidth]{images/4_1_encoder_decoder}
     \caption{Encoder-Decoder transformer}\label{fig:figure-encoder-decoder-transformer}
 \end{figure}
 
@@ -31,7 +31,7 @@ In this version of the model, we used the same encoder-decoder model of the prev
 The auto-encoder is split into two parts: first part brings the dimensionality from $x$ to 512 and 2048, the second part brings the dimensionality back to $x$, with $x$ depending on the representation format (6 for euler angles, and 12 for roto-translation matrix).
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/4_pose_encoder}
+    \includegraphics[width=0.5\textwidth]{images/4_1_pose_encoder}
     \caption{Pose auto-encoder}\label{fig:figure-pose-encoder}
 \end{figure}
 
@@ -41,7 +41,7 @@ We used the first part to create the ground-truth of the pose, the second part t
 So, the final structure of the model is shown in Figure 4.4.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{images/4_encoder_decoder_with_pose_autoencoder}
+    \includegraphics[width=\textwidth]{images/4_1_encoder_decoder_with_pose_autoencoder}
     \caption{Encoder-Decoder with pose auto-encoder}\label{fig:figure-encoder-decoder-with-pose-encoder}
 \end{figure}
 
@@ -50,7 +50,7 @@ In this model, we replaced the parameter vector \textit{memory} with the output 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{images/4_autoregressive_model}
+    \includegraphics[width=\textwidth]{images/4_1_autoregressive_model}
     \caption{Encoder-Decoder with pose auto-encoder in autoregressive mode}\label{fig:figure-auto-regressive-model}
 \end{figure}
 
