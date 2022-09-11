@@ -59,7 +59,7 @@ For example, max-pooling is computed as showed in the image:
 \end{figure}
 With stride = 2, sliding over the input feature map and taking the maximum value of the window, the dimensionality of the feature map is reduced.
 Another important component is the activation function, \gls{relu} is the most used one, it is defined as:
-\begin{equation}[H]
+\begin{equation}
     ReLU(x) = \max(0, x)
     \label{eq:expression-relu}
 \end{equation}
@@ -79,7 +79,7 @@ The output vector is then passed through a feed-forward neural network, which is
 The self-attention module is then repeated $N$ times, where $N$ is the number of layers.
 
 The whole process can be summarized as the:
-\begin{equation}[H]
+\begin{equation}
     Attention(Q, K, V) = softmax\left(\frac{QK^T}{\sqrt{d_k}}\right)V
     \label{eq:expression-scaled-dot-product}
 \end{equation}
