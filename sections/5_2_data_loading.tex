@@ -1,0 +1,84 @@
+\section{Data Loading}\label{sec:data-loading}
+The data-loading process is strictly connected to the \S4.2 Feeding strategies, because it changes how we want to feed the data to the neural network.
+
+This process is divided into two parts, the first one is the loading process, and the second one is how to draw a batch of sequences.
+
+\subsection{Loading process}\label{subsec:loading-process}
+Initially, we load the images and the poses into the RAM from the KITTI dataset, so in the same time we require the computer to keep in memory a lot of images.
+And, this is not efficient from a point of view of memory.
+
+Then, we decided to store only the path to the images and the poses in the RAM, and we load the images and the poses from the disk when we need them.
+This is a good solution because we don't need to keep in memory all the images, but we need to load them from the disk when we need them.
+So the performance of the disk where we store the images is important.
+
+To perform this, we created a class called \textit{KittiDataset} that inherits from the \textit{Dataset} class of the \textit{PyTorch} library.
+And, by overriding the \textit{\_\_getitem\_\_} and \textit{\_\_len\_\_} method, we can load the images and the poses from the disk when we need them.
+
+Then, the last operation we do is to resize the images to (1200, 360), this is to ensure that all the images has the same size.
+
+\subsection{Batch drawing}\label{subsec:batch-drawing}
+
+The batch drawing is the process of drawing a batch of items from the dataset.
+In our case, each item is a sequence of images and poses.
+
+The API pytorch provides for this is the \textit{DataLoader} class, which takes in input a dataset object.
+By default, the Dataloader class shuffles the dataset, and it draws a batch of items from the dataset, it processes them with \textit{collate\_fn} function, and it returns them.
+
+The \textit{collate\_fn} function is a function that takes in input a list of items, and it returns a tuple of tensors.
+The first one is the input for the NN, so the images, and the second one is the target, so the poses.
+
+Another important parameter of the class \textit{DataLoader} is Sampler or BatchSampler.
+The difference between them is that with Sampler we can customize how to select items from the dataset, influencing the choice of the dataloader over items, meanwhile, the BatchSampler is used to customize how to select batches from the dataset, influencing the choice of the dataloader over one batch.
+
+To implement the first strategy of \S4.2.2 we implemented a BatchSampler that draws a batch of sequences, such that each item (sequence) is connected to the one before and after it.
+
+But, for the final version (Second one introduced in \S4.2.2), we use the default sampler, because we implemented the dataset \textit{\_\_getitem\_\_} method in a way that it returns a sequence of images and poses.
+E.g., when the $item_i$ is requested, the method returns a sequence from $item_i$ to $item_{i + seq_{len}-1}$.
+The \textit{\_\_getitem\_\_} method also processes the poses in a way the pose of the first image is the origin of the coordinate system .
+\begin{lstlisting}[language=python,label={lst:dataset-get-item}, caption ={The \textit{\_\_getitem\_\_} method of the \textit{KittiDataset} class.}]
+def __getitem__(self, idx):
+    images, poses  = [], []
+    to_translation, to_rotation = None, None
+    for i in range(idx, idx + self.seq_len):
+        img_path, pose = self.data[i]
+        rot, tran = pose[:3, :3], pose[:, -1]
+        if to_translation is None:
+            to_translation, to_rotation = tran, rot
+        tran = tran - to_translation
+        rot = rot @ torch.t(to_rotation)
+        pose = torch.cat((rot, tran.reshape(3, 1)), dim=1).reshape(-1, )
+        frame = load_image(img_path, self.transform)
+        images.append(frame)
+        paths.append(img_path)
+    return images, poses
+\end{lstlisting}
+In this way, we can randomly sample sequences from the dataset, removing the constraint of the connection between the sequences.
+
+When we train the network, we set the shuffle parameter to \textbf{True}, to \textbf{False} during th test time, because we want to have the sequences in the same order as in the dataset to be able to reconstruct the trajectory.
+To reconstruct the trajectory, we need to obtain the prediction of each sequence, then re-concatenate them as \text{Code. 5.x} shows:
+\begin{lstlisting}[language=python,label={lst:reconstruct-trajectory}, caption ={Reconstruct the trajectory from the predictions which is a list of batches of sequences.}]
+def composing_trajectory(predictions):
+    trajectory = []
+    back_translation = predictions[0, 0, 0].reshape(3, 4)[:3, -1]
+    back_rotation = predictions[0, 0, 0].reshape(3, 4)[:3, :3]
+    trajectory.append(torch.cat((back_rotation.reshape(3, 3), back_translation.reshape(3, 1)), dim=1).flatten())
+    for k in range(predictions.shape[0]):
+        # number of batches
+        for i in range(predictions.shape[1]):
+            # number of sequence in each batch
+            for j in range(predictions.shape[2]):
+                # number of frames in each sequence
+                current_pose = predictions[k, i, j].reshape(3, 4)
+                rot, tran = current_pose[:3, :3], current_pose[:3, -1]
+                if j == 0: # beginning of the sequence
+                    last_pose = trajectory[-1].reshape(3, 4)
+                    back_translation = last_pose[:3, -1]
+                    back_rotation = last_pose[3, :3]
+                else:
+                    tran = tran + back_translation
+                    rot = rot @ back_rotation
+                    trajectory.append(torch.cat((rot.reshape(3, 3), tran.reshape(3, 1)), dim=1).flatten())
+
+    return torch.stack(trajectory)
+\end{lstlisting}
+Where the \textit{predictions} is a tensor of shape \textit{(num\_batchs, batch\_size, seq\_len, 12)}, i.e., a list of batches.

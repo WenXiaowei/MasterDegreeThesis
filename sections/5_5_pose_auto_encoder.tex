@@ -1,0 +1,19 @@
+\section{Pose Auto-encoder}\label{sec:pose-auto-encoder}
+Pose encoder structure is very simple, it takes as input the pose, and it outputs the same pose.
+We devised this a MLP can be get in input the pose, and it can reproduce the same poses with small margin of error.
+In fact, we discovered that with \hyperref[subsec:directly-feeding-the-sequence]{\S4.2.1}, the auto-encoder really struggles to reduce the loss, MSE in this case, the reason is that the network is required to output a very large range of values.
+To fix this, we are forced to used \hyperref[subsec:sequence-with-origin]{\S4.2.2}.
+Another reason is that by use ReLU activation function, the network is forced to output only positive values, meanwhile for some poses, the output of the network is negative.
+To solve this problem, we used LeakyReLU activation function, which allows the network to output negative values.
+
+We tried with different shapes for the auto-encoder, but we found that the best results are obtained with this structure:
+[x, 64, 128, 256, 512, 512, 512, 512, 512, 512, 512, 512, 256, 128, 64,  x]
+where x is the dimension of the input, we used $x \in \{6, 12\}$.
+The structure of the auto-encoder is obtained growing the number of layers, at the beginning we used only 2 layers with 512 neurons, but in that case the capacity was not enough, causing the loss to be very high.
+Then by increasing the number of layers, we found that the best results are obtained with 16 layers.
+
+The network was trained with MSE loss, ADAM optimizer and learning rate scheduling, as training set we used the KITTI dataset sequences, but the number 3, which is used as validation set.
+On training set, we achieved the loss of 0.0001, while on validation set, we achieved the loss of 0.0002. %TODO: add the loss values
+
+So, given the low loss-value on the testing set, we can conclude that the auto-encoder is able to reproduce the same poses with a small margin of error.
+Therefore, we can use it to produce the embedding for the poses, and used it as the ground truth embedding.
