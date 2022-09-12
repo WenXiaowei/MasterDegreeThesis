@@ -5,22 +5,22 @@ Before feeding the sequence of images into the model, as it is usual in the lite
 The first operation is the normalization (dividing each pixel value by 255) in order to have the images in the range $[0,1]$, this is useful because the neural network works better with this range as it has to compute smaller range of numbers.
 The second operation is the standardization, in this way, we are centering the data around zero, and we are reducing the variance of the data, to do so, we computed the mean for each of RGB channels following this formula:
 \begin{equation}
-    \mu_{c} = \frac{1}{N}\sum_{i=1}^{N}I_{c}(i)
+    \mu_{c} = \frac{1}{HW}\sum_{i=1}^{H}\sum_{j=1}^{W}I_{c}(i, j)
     \label{eq:equation_mean}
 \end{equation}
-where $I_{c}(i)$ is the $i$-th pixel of the $c$-th channel, $N$ is the number of pixels of the image, $\mu_{c}$ is the mean of the $c$-th channel.
+where $I_{c}(i, j)$ is the $j$-th pixel of the $i$-th row of the $c$-th channel, $W$ is the width of the image, $H$ is height of the image, $\mu_{c}$ is the mean of the $c$-th channel.
 Then, the standard deviation as follow:
 \begin{equation}
-    \sigma_{c} = \sqrt{\frac{1}{N}\sum_{i=1}^{N}(I_{c}(i) - \mu_{c})^{2}}
+    \sigma_{c} = \sqrt{\frac{1}{HW}\sum_{i=1}^{H}\sum_{j=1}^{W} (I_{c}(i,j) - \mu_{c})^{2}}
     \label{eq:equation_std_dev}
 \end{equation}
 where $\sigma_{c}$ is the standard deviation of the $c$-th channel.
 Finally, we normalized the images as follow:
 \begin{equation}
-    I^*_{c}(i) = \frac{I_{c}(i) - \mu_{c}}{\sigma_{c}}
+    I^*_{c}(i) = \frac{I_{c}(i,j) - \mu_{c}}{\sigma_{c}}
     \label{eq:equation_normalization}
 \end{equation}
-where $I^*_{c}(i)$ is the normalized $i$-th pixel of the $c$-th channel.
+$\forall i \in [1, H], j \in [1, W], c \in [R, G, B]$ and $I^*_{c}(i)$ is the normalized $i$-th pixel of the $c$-th channel.
 
 We perform the aforementioned operations to all images of the KITTI dataset saving new images, in this way, we need to process them just once, saving time during the training process.
 

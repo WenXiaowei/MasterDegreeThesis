@@ -34,7 +34,7 @@ To implement the first strategy of \S4.2.2 we implemented a BatchSampler that dr
 
 But, for the final version (Second one introduced in \S4.2.2), we use the default sampler, because we implemented the dataset \textit{\_\_getitem\_\_} method in a way that it returns a sequence of images and poses.
 E.g., when the $item_i$ is requested, the method returns a sequence from $item_i$ to $item_{i + seq_{len}-1}$.
-The \textit{\_\_getitem\_\_} method also processes the poses in a way the pose of the first image is the origin of the coordinate system .
+The \textit{\_\_getitem\_\_} method also processes the poses in a way the pose of the first image is the origin of the coordinate system and the origin of the sequence.
 \begin{lstlisting}[language=python,label={lst:dataset-get-item}, caption ={The \textit{\_\_getitem\_\_} method of the \textit{KittiDataset} class.}]
 def __getitem__(self, idx):
     images, poses  = [], []
