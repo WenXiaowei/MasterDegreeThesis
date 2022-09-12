@@ -20,13 +20,13 @@ Each of these models introduced some innovations and improved the performance on
     \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{images/2_inception_v3}
-        \caption{Inception V3 Structure}\label{fig:inception-v3}
+        \caption{Inception V3 Structure.}\label{fig:inception-v3}
     \end{figure}
     \item ResNet is a model that is based on the concept of \emph{residual network} which is composed by several blocks of the same type with the skip connections:
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.4\textwidth]{images/2_1_skip_connection}
-        \caption{Skip connection}\label{fig:skip-connection}
+        \caption{Skip connection.}\label{fig:skip-connection}
     \end{figure}
     Basically, the input of the block is added to the output before feeding it to the next block, in this way, we can avoid the \gls{vanishing gradient problem} making easier the training process.
 \end{itemize}
@@ -46,7 +46,7 @@ With stride, we can control the size of the output image, if the stride is equal
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/2_convolutions}
-    \caption{Convolutions: every single element of the output feature map is obtained by summing the element-wise product between the elements from the input feature map and the kernel. The whole feature map is then obtained sliding the kernel over the input feature map.}
+    \caption[Example of convolution]{Convolutions: every single element of the output feature map is obtained by summing the element-wise product between the elements from the input feature map and the kernel. The whole feature map is then obtained sliding the kernel over the input feature map.}
     \label{fig:figure-convolutions}
 \end{figure}
 Then, there are pooling layers, usually max-pooling and average pooling, which can reduce the dimensionality of the feature maps by setting strides $>=2$, which is useful to reduce the computational cost.
@@ -54,7 +54,7 @@ For example, max-pooling is computed as showed in the image:
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/2_max_pooling}
-    \caption{Max-pooling: essentially, it strides over the input image and takes the max value of the area covered by the kernel.}
+    \caption[Example of max-pooling]{Max-pooling: essentially, it strides over the input image and takes the max value of the area covered by the kernel.}
     \label{fig:figure-max-pooling}
 \end{figure}
 With stride = 2, sliding over the input feature map and taking the maximum value of the window, the dimensionality of the feature map is reduced.
@@ -88,7 +88,7 @@ And the graphical representation is:
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./images/2_attention}
-    \caption{Attention mechanism: (Left) scaled-dot-product. (right) Multi-head attention which is obtained by combining many scaled-dot-product attention.}
+    \caption[Attention mechanisms]{Attention mechanism: (Left) scaled-dot-product. (right) Multi-head attention which is obtained by combining many scaled-dot-product attention.}
     \label{fig:figure-encoder-structure}
 \end{figure}
 
