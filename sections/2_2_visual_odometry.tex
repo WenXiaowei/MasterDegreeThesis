@@ -1,7 +1,7 @@
 \section{Odometry}\label{sec:visual-odometry}
 As introduced in \S1.2, the problem of odometry is about the estimation of the change in a robot's pose over time.
 
-The odometry, also known as self-localization, can be classified in different ways, in \S2.2.1 there is a more detailed description of the different types of odometry.
+The odometry, also known as self-localization, can be classified in different ways, in the next section, there is a more detailed description of the different types of odometry.
 
 \subsection{Taxonomy}\label{subsec:tassonomy}
 There different types of odometry, which based on the classification of ~\cite{vo_state_of_art} can be divided into two main categories: \textit{GNSS available} and \textit{GNSS not available}.
@@ -13,14 +13,140 @@ There different types of odometry, which based on the classification of ~\cite{v
 
 \subsection{Reference systems}\label{subsec:reference-systems}
 To tackle the problem of odometry, we need as to choose the representation system to adopt.
-There are many way of representing the pose of the camera or the robot, but the most common are the \textit{Euler angles} and the \textit{quaternions} and \textit{rotation matrix} combined with \textit{translation matrix}.
-% TODO add how to translate the poses origin.
+There are many way of representing the pose of the camera or the robot, but the most common are the \textit{Euler angles}, \textit{roto-translation matrix}, \textit{quaternions} and \textit{homogeneous coordinates}.
+In the project we will use the first twos, the \textit{Euler angles} and the \textit{roto-transformation matrix}.
+The KITTI dataset provides the pose of the camera in the \textit{roto-transformation matrix} format flattened into a list of 12 numbers.
 
-\subsection[Reference systems conversion]{Reference systems conversion}\label{subsec:reference-systems-conversion}
+\subsubsection*{Euler angles}
+The Euler angles (\cite{euler_angles}) are introduced by Euler to describe the orientation of a rigid body with respect to a fixed coordinate system.
+According to Euler's rotation theorem, any rotation may be described using three angles.
+If the rotations are written in terms of rotation matrices \textbf{D}, \textbf{C} and \textbf{B}, then, a general rotation \textbf{A} can be written as:
+\begin{equation}
+    \textbf{A} = \textbf{D} \textbf{C} \textbf{B}
+    \label{eq:general_rotation}
+\end{equation}
+where $D$, $C$ and $B$ are called Euler angles.
+There are several conventions for Euler Angles, depending on the axes about which the rotation are carried out.
+Write the matrix \textbf{A} as:
+\begin{equation}
+    \textbf{A} = \begin{bmatrix}
+                     a_{11} & a_{12} & a_{13} \\
+                     a_{21} & a_{22} & a_{23} \\
+                     a_{31} & a_{32} & a_{33}
+    \end{bmatrix}
+    \label{eq:matrix_A}
+\end{equation}
+The so-called ``x-convention'' is the most common one, in this convention, the rotation given by angles ($\phi$, $\theta$, $\psi$) respectively for \textit{roll}, \textit{pitch} and \textit{yaw} is defined as:
+\begin{enumerate}
+    \item by an angle $\phi$ about the $z$-axis using $D$;
+    \item then, by an angle $\theta \in [0,\pi]$ about the former $x$-axis using $C$;
+    \item third rotation is by an angle $\psi$ about the former $z$-axis using $B$.
+\end{enumerate}
+Here, we have a graphical example of the \textit{roll}, \textit{pitch} and \textit{yaw} axis:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/2_2_roll_pitch_yaw}
+    \caption{Roll-Pitch-Yaw axis representation.}\label{fig:euler-angles}
+\end{figure}
+So, by adding x,y, z axis as translations to three rotation angles ($\phi$, $\theta$, $\psi$) we can represent the pose of the camera in the world frame by using six numbers.
+\subsubsection*{Roto-translation matrix}
+In linear algebra, a \textit{roto-translation matrix} is a matrix that represents a rigid-body transformation.
+It's called \textit{roto-translation} because it can be decomposed into a \textit{rotation matrix} and a \textit{translation}.
+
+In details, the rotation matrix is defined as:
+\begin{equation}
+    \textbf{R} = \begin{bmatrix}
+                     r_{11} & r_{12} & r_{13} \\
+                     r_{21} & r_{22} & r_{23} \\
+                     r_{31} & r_{32} & r_{33}
+    \end{bmatrix}
+    \label{eq:rotation_matrix}
+\end{equation}
+And it has the following properties:
+\begin{itemize}
+    \item It must be a square matrix.
+    \item $\textbf{R}^T = \textbf{R}^{-1}$: the transpose of the rotation matrix is the inverse of the rotation matrix;
+    \item $\textbf{R}^T \textbf{R} = \textbf{I}$: the transpose of the rotation matrix multiplied by the rotation matrix is the identity matrix;
+    \item Multiplication of rotation matrices will result in a rotation matrix.
+    \item The dot product of a row with column will be equal to 1.
+    \item The cross product of two rows of a rotation matrix will be equal to the third row.
+\end{itemize}
+The translation vector is defined as:
+\begin{equation}
+    \textbf{t} = \begin{bmatrix}
+                     t_{1} \\
+                     t_{2} \\
+                     t_{3}
+    \end{bmatrix}
+    \label{eq:translation_vector}
+\end{equation}
+The translation vector indicates the position of the origin of the new coordinate system with respect to the old one.
+So, by combining rotation matrix and the translation vector, we will obtain:
+\begin{equation}
+    \textbf{A} = \begin{bmatrix}
+                     r_{11} & r_{12} & r_{13} &t_{1}\\
+                     r_{21} & r_{22} & r_{23} &t_{2}\\
+                     r_{31} & r_{32} & r_{33} &t_{3}\\
+                     0 & 0 & 0 & 1
+    \end{bmatrix}
+    \label{eq:roto-transformation}
+\end{equation}
+But, as the last row is always the same, we can ignore it, so we can write it as a sequence of 12 numbers like: $[r_{11}, r_{12}, r_{13}, t_{1}, r_{21}, r_{22}, r_{23}, t_{2}, r_{31}, r_{32}, r_{33}, t_{3}]$.
+And this is the format that the KITTI dataset provides.
+
+\subsection{Conversions}\label{subsec:conversions}
+We mainly use two different representations of the pose of the camera, the \textit{Euler angles} and the \textit{roto-translation matrix}.
+So we need to convert from Euler angles to the roto-translation matrix and back.
+
+\subsubsection*{Euler angles to roto-translation matrix}
+To compute the roto-translation matrix, we need to compute the rotation matrix meanwhile the translation vector is already provided.
+To compute the rotation matrix, we need to compute the rotation matrix for each axis, then we need to multiply them.
+The rotation matrix for the \textit{roll} axis is defined as:
+\begin{equation}
+    \textbf{R}_{roll} = \begin{bmatrix}
+                     1 & 0 & 0 \\
+                     0 & \cos(\phi) & -\sin(\phi) \\
+                     0 & \sin(\phi) & \cos(\phi)
+    \end{bmatrix}
+    \label{eq:rotation_matrix_roll}
+\end{equation}
+The rotation matrix for the \textit{pitch} axis is defined as:
+\begin{equation}
+    \textbf{R}_{pitch} = \begin{bmatrix}
+                     \cos(\theta) & 0 & \sin(\theta) \\
+                     0 & 1 & 0 \\
+                     -\sin(\theta) & 0 & \cos(\theta)
+    \end{bmatrix}
+    \label{eq:rotation_matrix_pitch}
+\end{equation}
+The rotation matrix for the \textit{yaw} axis is defined as:
+\begin{equation}
+    \textbf{R}_{yaw} = \begin{bmatrix}
+                     \cos(\psi) & -\sin(\psi) & 0 \\
+                     \sin(\psi) & \cos(\psi) & 0 \\
+                     0 & 0 & 1
+    \end{bmatrix}
+    \label{eq:rotation_matrix_yaw}
+\end{equation}
+So, the rotation matrix is defined as:
+\begin{equation}
+    \textbf{R} = \textbf{R}_{roll} \textbf{R}_{pitch} \textbf{R}_{yaw}
+    \label{eq:eq-rotation_matrix}
+\end{equation}
+Then, by concatenating the translation matrix and the rotation matrix, we will obtain the roto-translation matrix.
+\subsubsection*{Roto-translation matrix to Euler angles}
+To compute the Euler angles, we need only the rotation matrix, then we need to extract each euler angle from it.
+So, given a rotation matrix as the equation 2.5, the three Euler angles are:
+\begin{enumerate}
+    \item $\phi = \arctan2(r_{32}, r_{33})$
+    \item $\theta = \arctan2(-r_{31}, \sqrt{r_{32}^2 + r_{33}^2})$
+    \item $\psi = \arctan2(r_{21}, r_{11})$
+\end{enumerate}
+Here, $\arctan2$ is the same arc-tangent function, with quadrant checking. 
 
 \subsection{State of the art}\label{subsec:state-of-the-art}
 
-\subsection[Metrics]{ATE and RTE}\label{subsec:ate-and-rte}
+\subsection{Metrics}\label{subsec:ate-and-rte}
 As presented in~\cite{measuring_robustness_of_visual_slam}, we can measure the global consistency of the trajectory by comparing the absolute distances between estimated and ground truth trajectory.
 As both trajectories can be specified in arbitrary coordinate frames, they first need to be aligned.
 Then, we should define the absolute trajectory error matrix at time $i$ as:
@@ -50,6 +176,6 @@ Similarly to ATE, we can compute the root-mean-square error over all time indice
 \end{equation}
 And for the rotation component we use mean error approach:
 \begin{equation}
-RPE_{trans}^{i, \Delta} \coloneq \frac{1}{m} \sum_{i=1}^m \angle (rot(F_i^\Delta))
-\label{eq:equation-rpe-trans}
+    RPE_{trans}^{i, \Delta} \coloneq \frac{1}{m} \sum_{i=1}^m \angle (rot(F_i^\Delta))
+    \label{eq:equation-rpe-trans}
 \end{equation}
