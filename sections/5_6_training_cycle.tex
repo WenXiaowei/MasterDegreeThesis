@@ -13,12 +13,11 @@ Each time we start a training, we create a new folder for that run, and we save 
 
 \subsection{Training and Validation}\label{subsec:training}
 At the beginning we print all the parameters used in that run, and we start the training cycle.
-We start by loading the dataset and the dataloader, then, the training cycle starts.
-Which iterate for a certain number of epochs, and for each epoch, we iterate over the dataset.
+We start by loading the dataset and the dataloader, then, the training cycle, which iterates for a certain number of epochs, and for each epoch, we iterate over the dataset through dataloader.
 
 For each epoch, the network is trained on the whole dataset, and the training loss is computed.
-then, we validate the network on the validation dataset, and we compute the validation loss.
-At the end of each epoch, we save the network weights, the optimizer state, the scheduler state, and we log the learning rate, the training loss, validation loss, and we plot the trajectory predicted during the validation.
+Then, we validate the network on the validation dataset, and we compute the validation loss.
+At the end of each epoch, if the validation loss is lower than the previous epoch's one we save the network weights, the optimizer state, the scheduler state, and we log the learning rate, the training loss, validation loss, and we plot the trajectory predicted during the validation.
 
 \subsection{Testing}\label{subsec:testing}
 

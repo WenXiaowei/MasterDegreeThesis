@@ -4,7 +4,6 @@ In our case, we tried different loss functions:
 \begin{itemize}
     \item Mean Squared Error (MSE);
     \item Weighted MSE;
-    \item Loss derived from \gls{ate} and \gls{rte};
 \end{itemize}
 
 \subsection{Mean Square Error (MSE)}\label{subsec:mean-square-error-(mse)}
@@ -12,7 +11,7 @@ MSE is the most common loss function used in regression problems.
 Given the ground truth pose $p_{gt}$ and the predicted pose $p_{pred}$, the MSE is defined as:
 \begin{equation}
     \label{eq:mean-square-error}
-    MSE = \frac{1}{N} \sum_{i=1}^{N} (p_{gt} - p_{pred})^2
+    MSE = \frac{1}{N} \sum_{i=1}^{N} (pose_{gt} - pose_{pred})^2
 \end{equation}
 
 This loss function is derived from the square of Euclidean distance, it is always positive value that decreases as the error approaches zero.
@@ -24,11 +23,6 @@ In this way, we impose the network to give more importance for the poses far awa
 The formula of the WMSE is:
 \begin{equation}
     \label{eq:weighted-mean-square-error}
-    WMSE = \frac{1}{N} \sum_{i=1}^{N} i * (p_{gt} - p_{pred})^2
+    WMSE = \frac{1}{N} \sum_{i=1}^{N} i * (pose_{gt} - pose_{pred})^2
 \end{equation}
 In the equation, we chose $i$ as the weight of the pose, but we can use any other function of $i$.
-
-\subsection[ATE and RPE loss]{Loss derived from ATE and RTE}\label{subsec:loss-derived-from-ate-and-rte}
-
-% todo write the section
-todo write the section
