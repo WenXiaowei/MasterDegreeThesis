@@ -18,6 +18,6 @@ There are different ways to classify the typology of Visual Odometry:
         \end{itemize}
     \item Visual inertial odometry: if a \gls{imu} is used within the VO system, it is commonly referred to as Visual inertial odometry.
 \end{itemize}
-We can represent the pose in different ways, for example: \textbf{euler angles}, \textbf{quaternions}, \textbf{SO(3)}, \textbf{rotation matrices} combined with \textbf{translation vectors}.
+We can represent the pose in different ways, for example: \textbf{euler angles}, \textbf{quaternions}, \textbf{rotation matrices} combined with \textbf{translation vectors}.
 
-The goal is to create a \gls{nn}, using a \textbf{ResNet} to extract features from images and the \textbf{transformer} presented by ~\cite{transformer_paper}, which is able to estimate a sequence of camera's pose given a sequence of images.
+The goal is to create a \gls{nn}, using a \textbf{ResNet} to extract features from images and the \textbf{transformer} presented by ~\cite{transformer_paper}, which is able to estimate a sequence of camera poses1. given a sequence of images.

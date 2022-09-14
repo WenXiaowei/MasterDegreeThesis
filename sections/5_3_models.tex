@@ -32,9 +32,10 @@ The randomness means that you might be able to predict future values of the outc
 AR models are also called conditional mean models, Markov Models, or transition models.
 
 In our case, what we want is to predict the future poses of the sequence, given the past poses.
-In details, we want to predict the pose at time $t_i$, given the poses at time $t_0, t_1, \dots, t-i-1$.
+In details, we want to predict the pose at time $t_i$, given the poses at time $t_0, t_1, \dots, t_{-i-1}$.
 To do this, we feed the network differently depending on the training phase and the inference phase.
-In the first one, we feed the network with the output of the transformer decoder with the output of the encoder, together with the target which is constructed by the following function:
+
+In the training phase, we feed the decoder with the output of the encoder and the target, which is obtained by combining the ground-truth pose embedding, and the learnable vector, the combination is defined as follows:
 \begin{lstlisting}[captionpos=b, label={lst:lst-training-target}, caption={Training target}, language=Python]
 def _training_target(self, gt):
     """
@@ -52,14 +53,14 @@ def _training_target(self, gt):
     return lower_triangular + upper_triangular
 \end{lstlisting}
 In the schema, each row is a sequence, and each element of the row is a pose.
-GT is the ground truth pose embedding computed by the pose auto-encoder, meanwhile trg is the memory of the transformer decoder.
+GT is the ground truth pose embedding computed by the pose auto-encoder, meanwhile the trg is part of the learnable vector.
 In essence, the batch\_size is 4 and seq\_len is 5.
 With this target, at the time 0, we have the \textit{GT} as first pose, also because it's considered the origin of that sequence, then what we have to predict is the second pose.
 At the time 2, we have the \textit{GT} at pose 0 and 1, and we have to predict the pose at time 2.
 And so on so forth.
 Last thing we should pay attention to is that the loss should be computed only on the elements on the first diagonal of the matrix, because in the lower triangular matrix, we have the ground truth, and we don't care about the predictions of the upper triangular matrix.
 
-For the inference phase, we feed the network with the output of the transformer decoder with the output of the encoder, together with the target which is constructed by the following function:
+For the inference phase, we feed the decoder with it-self's output at previous time step combined with the learnable vector as the following function:
 \begin{lstlisting}[captionpos=b, label={lst:lst-inference-target}, caption={Inference target}, language=Python]
 def _inference_target(self, predictions, column_index):
     """
@@ -96,5 +97,5 @@ for i in range(1, x.shape[0]):
         predictions[i + 1, :, :] = predicted[:, :, :]
 \end{lstlisting}
 In the previous code snippet, the \textit{gt\_target} origin embedding, we instantiate a tensor with the same shape of the input, we set the first column to the origin embedding, and then we iterate over the sequence.
-At each iteration, we predict the pose at $i$-th, given the poses at time $t_0, t_1, \dots, t-i-1$ for all the sequences of the batch.
+At each iteration, we predict the pose at $i$-th, given the poses at time $t_0, t_1, \dots, t_{-i-1}$ for all the sequences of the batch.
 Differently from the training, we should compute the loss for the whole \textit{predictions} tensor, because we are predicting all the poses.

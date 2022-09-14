@@ -2,10 +2,10 @@
 To solve the problem of visual odometry, we tried different approaches to feed the sequence of image into the model, and to construct the model itself.
 We tried following approaches to feed the data:
 \begin{enumerate}
-    \item Feeding the sequence into the model directly and presenting the pose as \emph{euler angles}.
-    \item Feeding the sequence into the model directly and presenting the pose as \emph{rotation matrix} so with twelve numbers and \emph{translation vector}.
-    \item Feeding the sequence into the model where the first frame is the origin of the reference frame and presenting the pose as \emph{euler angles}.
-    \item Feeding the sequence into the model where the first frame is the origin of the reference frame and presenting the pose as \emph{rotation matrix} and \emph{translation vector}.
+    \item Feeding the sequence into the model directly and representing the pose as \emph{euler angles}.
+    \item Feeding the sequence into the model directly and representing the pose as \emph{rotation matrix} so with twelve numbers and \emph{translation vector}.
+    \item Feeding the sequence into the model where the first frame is the origin of the reference frame and representing the pose as \emph{euler angles}.
+    \item Feeding the sequence into the model where the first frame is the origin of the reference frame and representing the pose as \emph{rotation matrix} and \emph{translation vector}.
     \item Feeding the sequence into the model where the first frame is the origin of the reference frame, and using the auto-regressive model to predict the pose.
 \end{enumerate}
 We can divide these strategies into two groups: the first group is composed by strategy 1 and 2, and the second group is composed by strategy 3, 4 and 5.

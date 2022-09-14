@@ -4,14 +4,13 @@ In the literature, when we need to develop a new project, there is a protocol wh
 This protocol is composed by a sequence of steps, the success of every step is fundamental for the continue of the next steps.
 The steps are:
 \begin{enumerate}
-    \item Study of the state of the art and deepening about the other projects' results.
+    \item Study of the state of the art and deepening about the other approaches results.
     \item Seeking for the dataset, we should look for a dataset which fits to our purpose, we should understand the characteristics of the datasets.
-    \item We should find some projects in oder to use them for the comparison
-    \item Validate the dataset using the other models, trying to reach the same results as the authors'.
-    \item Build the model and use it as baseline.
+    \item Validate the dataset using the other approaches.
+    \item Build the model.
     \item Over-fit the model with a single prediction target class, in our case a single sequence to verify the network capacity.
     \item Over-fit the model with two and more prediction target classes, in this way, we are verifying that the model can learn more than one target, which is useful for us to understand which is the limit of the network in term of capacity.
-    \item Train the model with the whole dataset, trying to improve the results achieved by the baseline, by changing the hyper-parameters or by changing the model.
+    \item Train the model with the whole dataset and evaluate on data unseen at training time, trying to improve the results achieved by the model, by changing the hyper-parameters or by changing the model itself.
     \item Fine-tuning, perform a fine tuning of the neural network can squeeze the last drops of performance of the network.
     \item Compare the results with the state of the art, discussion about the results and the possible improvements.
 \end{enumerate}

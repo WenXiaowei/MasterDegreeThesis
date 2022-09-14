@@ -55,7 +55,7 @@ def __getitem__(self, idx):
 In this way, we can randomly sample sequences from the dataset, removing the constraint of the connection between the sequences.
 
 When we train the network, we set the shuffle parameter to \textbf{True}, to \textbf{False} during th test time, because we want to have the sequences in the same order as in the dataset to be able to reconstruct the trajectory.
-To reconstruct the trajectory, we need to obtain the prediction of each sequence, then re-concatenate them as \text{Code. 5.x} shows:
+To reconstruct the trajectory, we need to obtain the prediction of each sequence, then re-concatenate them as \text{Code. 5.2} shows:
 \begin{lstlisting}[captionpos=b, language=python,label={lst:reconstruct-trajectory}, caption ={Reconstruct the trajectory from the predictions which is a list of batches of sequences.}]
 def composing_trajectory(predictions):
     trajectory = []

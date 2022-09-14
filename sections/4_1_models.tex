@@ -7,7 +7,7 @@ With only-encoder, we mean that the network has only the encoder part, the decod
 We tried to use the encoder part of the network to predict the pose of the camera, using both ResNet18 and ResNet50 as feature extractor.
 The main difference of ResNet18 and ResNet50 is the number of the output embedding, in fact, ResNet18 has output embedding dimension of 512, while ResNet50 has output embedding dimension of 2048.
 We also tried with different depth of the network, depth of \textbf{6} and \textbf{12} layers of encoder.
-Then, to obtain prediction, we used a fully connected layer to reduce the dimension of the embedding to the desired number of neuron, depending on the prediction strategy.
+Then, to obtain prediction, we used a fully connected layer to reduce the dimension of the embedding to the desired number of values, depending on the prediction strategy.
 In the figure 4.1 the model architecture is shown.
 \begin{figure}[H]
     \centering
@@ -17,7 +17,7 @@ In the figure 4.1 the model architecture is shown.
 
 \subsection{Encoder-decoder}\label{subsec:encoder-decoder}
 
-For the encoder-decoder, we used the same encoder of the previous section, and we added a decoder part, which also takes in input a vector parameter as \textit{memory} of the network.
+For the encoder-decoder, we used the same encoder of the previous section, and we added a decoder part, which takes the output of the encoder as \textit{memory}, and a learnable vector which are also trained.
 In this version of the network, we tried the same configurations of the encoder-only model but the feature extractor ResNet50, because the network requires more memory than those available on GPU.
 The structure of the network is shown in figure 4.2.
 \begin{figure}[H]
