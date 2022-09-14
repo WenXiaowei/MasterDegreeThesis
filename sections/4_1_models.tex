@@ -50,8 +50,18 @@ In this model, we replaced the parameter vector \textit{memory} with the output 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{images/4_1_autoregressive_model}
-    \caption{Encoder-Decoder with pose auto-encoder in autoregressive mode}\label{fig:figure-auto-regressive-model}
+    \includegraphics[width=\textwidth]{images/4_1_ar_train}
+    \caption{Auto-regressive mode: training time.}\label{fig:figure-auto-regressive-train}
 \end{figure}
 
-In the figure 4.5, we can see the architecture of this model but the main difference between this model and previous ones is in the implementation of training and inference, this will be discussed in the next section.
+In the figure 4.5, we can see the architecture of this model at \textbf{training time},where the memory comes from the encoder, then, we construct the target by using the learnable vector as the upper-triangle of the target, and the embedding of the ground-truth as the lower-triangle of the target.
+For the \textbf{inference time}, where we need to predict the pose one by one, starting from the second pose because the first one origin, in the figure 4.6, we can see the workflow of the model.
+At first step of prediction, where we have to predict the second pose, we use the target which is composed like: $[origin\_emb, learnable\_vector[1\colon-1]]$ , for next step,
+we will use: $[origin\_emb, first\_prediction, learnable\_vector[2\colon-1]]$, and so on so forth.
+Meanwhile, the memory is not changed.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/4_1_ar_inference}
+    \caption{Autoregressive mode: inference time}\label{fig:figure-auto-regressive-inference}
+\end{figure}
