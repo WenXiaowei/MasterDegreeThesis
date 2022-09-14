@@ -18,9 +18,9 @@ Meanwhile, the TransformerEncoder needs as input:
 \end{itemize}
 The TransformerDecoder and TransformerDecoderLayer are similar to the TransformerEncoder and TransformerEncoderLayer, respectively.
 The difference between TransformerEncoderLayer and the TransformerDecoderLayer is that the latter in \textit{forward} method, it takes as mandatory parameter the target sequence, while the former doesn't.
-There are also some optional parameter, like the \textit{src\_key\_padding\_mask} and \textit{src\_key\_padding\_mask}, which functionality is explained in \hyperref[subsec:transformer]{\S2.1.2}.
+There are also some optional parameter, like the \textit{src\_key\_padding\_mask} and \textit{src\_key\_padding\_mask}, which functionality is explained in \hyperref[subsec:transformer]{\S2.1.2 Theoretical foundations - Transformer}.
 
-Finally, depending on different version of the model we introduced in \hyperref[subsec:models]{\S4.1}, we used different MLP to predict the pose.
+Finally, depending on different version of the model we introduced in \hyperref[subsec:models]{\S4.1 Experiments - Models}, we used different MLP to predict the pose.
 
 \subsection{Auto-regressive Model}\label{subsec:auto-regressive-model}
 Before starting with our implementation of the autoregressive model, we want to explain the intuition behind it.
@@ -35,7 +35,7 @@ In our case, what we want is to predict the future poses of the sequence, given 
 In details, we want to predict the pose at time $t_i$, given the poses at time $t_0, t_1, \dots, t-i-1$.
 To do this, we feed the network differently depending on the training phase and the inference phase.
 In the first one, we feed the network with the output of the transformer decoder with the output of the encoder, together with the target which is constructed by the following function:
-\begin{lstlisting}[label={lst:lst-training-target}, caption={Training target}, language=Python]
+\begin{lstlisting}[captionpos=b, label={lst:lst-training-target}, caption={Training target}, language=Python]
 def _training_target(self, gt):
     """
     :return: the target for the training phase, that should be:
@@ -60,7 +60,7 @@ And so on so forth.
 Last thing we should pay attention to is that the loss should be computed only on the elements on the first diagonal of the matrix, because in the lower triangular matrix, we have the ground truth, and we don't care about the predictions of the upper triangular matrix.
 
 For the inference phase, we feed the network with the output of the transformer decoder with the output of the encoder, together with the target which is constructed by the following function:
-\begin{lstlisting}[label={lst:lst-inference-target}, caption={Inference target}, language=Python]
+\begin{lstlisting}[captionpos=b, label={lst:lst-inference-target}, caption={Inference target}, language=Python]
 def _inference_target(self, predictions, column_index):
     """
     column_index is the index of the column that we want to predict: always 0 < x < seq_len
@@ -85,7 +85,7 @@ def _inference_target(self, predictions, column_index):
 \end{lstlisting}
 
 The the code for inference is the following the one shown in \textbf{Code xx}.
-\begin{lstlisting}[label={lst:lst-inference}, caption={Inference}, language=Python]
+\begin{lstlisting}[captionpos=b, label={lst:lst-inference}, caption={Inference}, language=Python]
 predictions = torch.zeros_like(x)
 predictions[:, 0, :] = gt_target  # embedding of the origin
 for i in range(1, x.shape[0]):

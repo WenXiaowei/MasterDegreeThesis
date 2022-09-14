@@ -1,5 +1,5 @@
 \section{Data Loading}\label{sec:data-loading}
-The data-loading process is strictly connected to the \S4.2 Feeding strategies, because it changes how we want to feed the data to the neural network.
+The data-loading process is strictly connected to the \hyperref[]{\S4.2 Experiments - Feeding strategies}, because it changes how we want to feed the data to the neural network.
 
 This process is divided into two parts, the first one is the loading process, and the second one is how to draw a batch of sequences.
 
@@ -30,12 +30,12 @@ The first one is the input for the NN, so the images, and the second one is the 
 Another important parameter of the class \textit{DataLoader} is Sampler or BatchSampler.
 The difference between them is that with Sampler we can customize how to select items from the dataset, influencing the choice of the dataloader over items, meanwhile, the BatchSampler is used to customize how to select batches from the dataset, influencing the choice of the dataloader over one batch.
 
-To implement the first strategy of \S4.2.2 we implemented a BatchSampler that draws a batch of sequences, such that each item (sequence) is connected to the one before and after it.
+To implement the first strategy of \hyperref[]{\S4.2.2 Experiments - Feeding strategies} we implemented a BatchSampler that draws a batch of sequences, such that each item (sequence) is connected to the one before and after it.
 
 But, for the final version (Second one introduced in \S4.2.2), we use the default sampler, because we implemented the dataset \textit{\_\_getitem\_\_} method in a way that it returns a sequence of images and poses.
 E.g., when the $item_i$ is requested, the method returns a sequence from $item_i$ to $item_{i + seq_{len}-1}$.
 The \textit{\_\_getitem\_\_} method also processes the poses in a way the pose of the first image is the origin of the coordinate system and the origin of the sequence.
-\begin{lstlisting}[language=python,label={lst:dataset-get-item}, caption ={The \textit{\_\_getitem\_\_} method of the \textit{KittiDataset} class.}]
+\begin{lstlisting}[captionpos=b, language=python,label={lst:dataset-get-item}, caption ={The \textit{\_\_getitem\_\_} method of the \textit{KittiDataset} class.}]
 def __getitem__(self, idx):
     images, poses  = [], []
     to_translation, to_rotation = None, None
@@ -56,7 +56,7 @@ In this way, we can randomly sample sequences from the dataset, removing the con
 
 When we train the network, we set the shuffle parameter to \textbf{True}, to \textbf{False} during th test time, because we want to have the sequences in the same order as in the dataset to be able to reconstruct the trajectory.
 To reconstruct the trajectory, we need to obtain the prediction of each sequence, then re-concatenate them as \text{Code. 5.x} shows:
-\begin{lstlisting}[language=python,label={lst:reconstruct-trajectory}, caption ={Reconstruct the trajectory from the predictions which is a list of batches of sequences.}]
+\begin{lstlisting}[captionpos=b, language=python,label={lst:reconstruct-trajectory}, caption ={Reconstruct the trajectory from the predictions which is a list of batches of sequences.}]
 def composing_trajectory(predictions):
     trajectory = []
     back_translation = predictions[0, 0, 0].reshape(3, 4)[:3, -1]

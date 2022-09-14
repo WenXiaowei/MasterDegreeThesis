@@ -1,5 +1,5 @@
 \section{Odometry}\label{sec:visual-odometry}
-As introduced in \S1.2, the problem of odometry is about the estimation of the change in a robot's pose over time.
+As introduced in \hyperref[sec:the-problem]{\S1.2}, the problem of odometry is about the estimation of the change in a robot's pose over time.
 
 The odometry, also known as self-localization, can be classified in different ways, in the next section, there is a more detailed description of the different types of odometry.
 
@@ -8,8 +8,21 @@ There different types of odometry, which based on the classification of ~\cite{v
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/2_2_taxonomy_odometry}
-    \caption{Taxonomy of odometry techniques}\label{fig:odometry-taxonomy}
+    \caption{Taxonomy of odometry techniques.}\label{fig:odometry-taxonomy}
 \end{figure}
+The main difference between the left-branch and the right branch is that in the left one, the systems can use the Global Navigation Satellite System (GNSS) to get the position of the robot, while in the right one, the systems cannot use the GNSS, so the task is much more difficult.
+Then, for the right branch, there are two classes, the first one is \textit{Single modality} meanwhile the other is about the combination of different modalities.
+Finally, the \textit{Single modality} can be divided into three classes, the first one is \textit{Vision-based}, second one is \textit{Observation based} and the last is \textit{Inertial}.
+The difference between first two are is that the first is about visual information, i.e., images, while the second one is about the information from the sensors, i.e., the laser scanner, radar sensor and sonar sensor.
+
+The visual odometry, then, can be divided in many categories, like in the following figure.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/2_2_visual_odometry_taxonomy}
+    \caption{Taxonomy of visual odometry techniques proposed in the literature.}\label{fig:visual-odometry-taxonomy}
+\end{figure}
+Our solution will be a monocular, face-forward, non-conventional approach by using machine learning technique, in particular, a neural network based on transformer model.
 
 \subsection{Reference systems}\label{subsec:reference-systems}
 To tackle the problem of odometry, we need as to choose the representation system to adopt.
@@ -142,7 +155,7 @@ So, given a rotation matrix as the equation 2.5, the three Euler angles are:
     \item $\theta = \arctan2(-r_{31}, \sqrt{r_{32}^2 + r_{33}^2})$
     \item $\psi = \arctan2(r_{21}, r_{11})$
 \end{enumerate}
-Here, $\arctan2$ is the same arc-tangent function, with quadrant checking. 
+Here, $\arctan2$ is the same arc-tangent function, with quadrant checking.
 
 \subsection{State of the art}\label{subsec:state-of-the-art}
 

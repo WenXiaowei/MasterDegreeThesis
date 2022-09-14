@@ -43,7 +43,7 @@ To generate the sequences, we need to choose the camera position in the scene to
     \item \textbf{shell}: samples a point from the volume between two spheres (with radius of the spheres given as parameters).
 \end{itemize}
 once we have the next position of the camera, we compute the rotation matrix to be applied to the camera in the way that the camera is always looking at the POI (Point Of Interest) which corresponds to the centre of the scene.
-\begin{lstlisting}[label={lst:compute-camera-rotation}, caption={Computes the rotatition matrix for the camera.}, captionpos=b]
+\begin{lstlisting}[captionpos=b, label={lst:compute-camera-rotation}, caption={Computes the rotatition matrix for the camera.}, captionpos=b]
 rotation = bproc.camera.rotation_from_forward_vec(poi - new_position)
 \end{lstlisting}
 Then, we apply the rotation matrix to the camera and we generate the image, and by setting a certain number of frames between two poses, the framework renders a sequence of images with relative intermediate poses.
@@ -51,7 +51,7 @@ Then, we apply the rotation matrix to the camera and we generate the image, and 
 
 But sometime, it happens that the new camera pose is too close to an object of the scene, so we set two conditions that need to be satisfied, otherwise the sampled camera pose is skipped.
 The first condition checks if there are obstacles in front of the camera which are too far or too close based on the given \textit{proximity\_checks}, while the second evaluates the interestingness or coverage of the scene.
-\begin{lstlisting}[label={lst:lstlisting}, caption={Checks whether the camera pose satisfies the conditions.}, captionpos=b]
+\begin{lstlisting}[captionpos=b, label={lst:lstlisting}, caption={Checks whether the camera pose satisfies the conditions.}, captionpos=b]
 def check_pose(c2w_m, special_obj, bvh_tree):
     if not bproc.camera.perform_obstacle_in_view_check(c2w_m, {"min": 5.0}, bvh_tree):
         return False
