@@ -1,12 +1,18 @@
 \section{Results}\label{sec:results}
-% todo talk also about the training problems, the loss function that stops reducing for example.
-% %**************************************************************
 
 \subsection{Full sequence prediction}\label{subsec:full-sequence-prediction}
 With different models a variety of results are achieved, but the most important result is that an important baseline for the future development of this kind of systems has been settled down.
-After a few trials with few models, which produced some circular trajectories, with the encoder-only version of transformer, and feeding the \textit{sequence 3} of Kitti (for more details \S~\ref{sec:kitti}) where the first image is considered as origin, we showed that the model is able to learn a single sequence in over-fitting, but fails when trying to over-fit a more complex sequence.
+For the encoder-only model, in over-fitting with sequence 3, we can obtain a trajectory which is not similar at all after 200 epochs showing no tendency to converge.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./images/6_1_trajectory_3_encoder_only}
+    \caption{Sequence 3 predicted by encoder-only model}
+    \label{fig:trajectory-3-encoder-only}
+\end{figure}
 
-The encoder-decoder version achieved the same results as the previous version, but the model was able to learn also the \textit{sequence 7} of Kitti, but it fails when trained with both \textit{sequence 3} and \textit{sequence 7}.
+After a few trials with encoder-decoder model, which produced some circular trajectories, feeding the \textit{sequence 3} of Kitti (for more details \S~\ref{sec:kitti}) where the first pose of the sequence is considered as origin, we showed that the model (with both 6 and 12 layers of encoder-decoder) is able to learn a single sequence in over-fitting, but fails when trying to over-fit a more complex sequence.
+The same model succeeded also in predicting the sequence 7, but failed when we combined the two sequences.
+It also fails when we try to over-fit the most complicate sequence, the sequence 0.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/6_1_well_predicted_seq_3}
