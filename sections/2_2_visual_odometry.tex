@@ -4,7 +4,7 @@ As introduced in \hyperref[sec:the-problem]{\S1.2}, the problem of odometry is a
 The odometry, also known as self-localization, can be classified in different ways, in the next section, there is a more detailed description of the different types of odometry.
 
 \subsection{Taxonomy}\label{subsec:tassonomy}
-There different types of odometry, which based on the classification of ~\cite{vo_state_of_art} can be divided into two main categories: \gls{gnss} available and GNSS not available.
+There different types of odometry, which based on the classification of Alkendi et al.~\cite{vo_state_of_art} can be divided into two main categories: \gls{gnss} available and GNSS not available.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/2_2_taxonomy_odometry}
@@ -158,7 +158,7 @@ So, given a rotation matrix as the equation 2.5, the three Euler angles are:
 Here, $\arctan2$ is the same arc-tangent function, with quadrant checking.
 
 \subsection{State of the art}\label{subsec:state-of-the-art}
-With the development of machine-learning tools, as the~\cite{vo_state_of_art} introduces, the recent years have seen a lot of researchers to tackle the VO problem with deep learning.
+With the development of machine-learning tools, as the~(\cite{vo_state_of_art}) introduces, the recent years have seen a lot of researchers to tackle the VO problem with deep learning.
 This approach has an important advantage which the fact that it can be done without prior knowledge of the camera parameters.
 An example fo the earliest work on learning-based VO divided the image into blocks, then, they developed a k-NN regression model that was trained to compute the optimal flow for each block.
 A second proposal is to estimate the \gls{opticalflow} by a linear subspace if there were considerable depth regularities relative to the robot motion in the environment.
@@ -172,19 +172,19 @@ Furthermore, CNN model was developed using monocular vision to estimate the vehi
 With monocular visual odometry we need to combine CNN and Bi-LSTM to leverage the feature properties of image pairs and to permit understanding  of the relationship between the features of successive images.
 Another solution could be to use the R-CNN employing RGB-D sensors.
 By including the depth information, inferring an accurate pose from monocular images.
-Recently, ~\cite{wang_vo} exploited a solution based on deep siamese convolutional neural network (DSCNN) and the second one called DL-based Monocular which depends on the first network.
+Recently, Wang et al.~(\cite{wang_vo}) exploited a solution based on deep siamese convolutional neural network (DSCNN) and the second one called DL-based Monocular which depends on the first network.
 The DSCNN model then is trained by the geometrical relationship of consecutive images to find a 6-DoF pose.
 For more details about the current state-of-the-art, please refer to~\cite{vo_state_of_art}.
 
 \subsection{Metrics}\label{subsec:ate-and-rte}
-As presented in~\cite{measuring_robustness_of_visual_slam}, we can measure the global consistency of the trajectory by comparing the absolute distances between estimated and ground truth trajectory.
+As presented by Prokhorov et al.~(\cite{measuring_robustness_of_visual_slam}), we can measure the global consistency of the trajectory by comparing the absolute distances between estimated and ground truth trajectory.
 As both trajectories can be specified in arbitrary coordinate frames, they first need to be aligned.
 Then, we should define the absolute trajectory error matrix at time $i$ as:
 \begin{equation}
     \label{eq:ate-error-matrix}
     E_i \coloneq Q_i^{-1} SP_i
 \end{equation}
-Where S is the rigid-body transformation found by Horn Method (\cite{horn_method}).
+Where S is the rigid-body transformation found by Horn Method (Horn et al.\cite{horn_method}).
 Then, the ATE is defined as the root-mean-square error from error matrices:
 \begin{equation}
     ATE_{rmse} = (\frac{1}{n} \sum_{i=1}^{n} ||E_i||^2)^{1/2}
