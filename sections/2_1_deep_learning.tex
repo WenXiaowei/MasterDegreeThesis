@@ -11,7 +11,7 @@ The development of computer vision has been a long process, the growth is favour
 CIFAR-10 (Doon et al.~\cite{cifar10_paper}), Fashion-MNIST(Xiao et al.~\cite{fashion_mnist_paper}), MS-Coco (Lin et al.~\cite{ms_coco_paper}) and ImageNet (Deng et al.~\cite{imagenet_paper}).
 These datasets are often used as benchmark for novel models.
 
-For the architectures, starting from AlexNet (Krizhevsky et al.~\cite{alex_net_paper}), then VGG (Simonyan et al.~\cite{vgg_paper}), Inception-V1 (Szegedy et al.~\cite{inception_v1_paper}), Inception-V2(Szegedy et al.~\cite{inception_v2_paper}), ResNet (He et al.~\cite{resnet_paper}), etc., the complexity of the models has increased enormously.
+For the architectures, starting from AlexNet (Krizhevsky et al.~\cite{alex_net_paper}), then VGG (Simonyan et al.~\cite{vgg_paper}), Inception-V1 (Szegedy et al.~\cite{inception_v1_paper}), Inception-V2 (Szegedy et al.~\cite{inception_v2_paper}), ResNet (He et al.~\cite{resnet_paper}), etc., the complexity of the models has increased enormously.
 Each of these models introduced some innovations and improved the performance on the benchmarks, for example:
 \begin{itemize}
     \item AlexNet introduced the concept of the \emph{convolutional neural network} (CNN) and use of the separation of the models into two different GPUs.
@@ -50,6 +50,7 @@ With stride, we can control the size of the output image, if the stride is equal
     \label{fig:figure-convolutions}
 \end{figure}
 Then, there are pooling layers, usually max-pooling and average pooling, which can reduce the dimensionality of the feature maps by setting strides $>=2$, which is useful to reduce the computational cost.
+An important property of max-pooling is that it is translation invariant, which means that the output of the max-pooling layer is the same regardless of the position of the input feature map.
 For example, max-pooling is computed as showed in the image:
 \begin{figure}[H]
     \centering
@@ -63,7 +64,7 @@ Another important component is the activation function, \gls{relu} is the most u
     ReLU(x) = \max(0, x)
     \label{eq:expression-relu}
 \end{equation}
-Which guarantees the non-linearity of the network, allowing the network to learn more complex features.
+It guarantees the non-linearity of the network, allowing the network to learn more complex features.
 These are the main components of a CNN, but there are other components, such as batch normalization and dropout which are used to improve the performance of the network reducing the over-fitting.
 Increasing the number of layers and combining the pooling layers, the CNN is able to extract more and more complex features, such as edges, lines, shapes, etc.
 Currently, the most used CNN architecture is the ResNet which will be used in the project as feature-extractor.
@@ -88,12 +89,14 @@ And the graphical representation is:
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./images/2_attention}
-    \caption[Attention mechanisms]{Attention mechanism: (Left) scaled-dot-product. (right) Multi-head attention which is obtained by combining many scaled-dot-product attention.}
+    \caption[Attention mechanisms]{Attention mechanism: (Left) scaled-dot-product attention. (right) Multi-head attention which is obtained by combining many scaled-dot-product attention.}
     \label{fig:figure-encoder-structure}
 \end{figure}
 
-Another important notion introduced is the multi-head attention, which is obtained by using more scaled dot product attention, each one with different weights, and concatenating each output vectors.
-Then, using a slightly modified version of the self-attention module, the encoder module is used as decoder, which takes as input also the output sequence, and repeating the number of encoder and decoder modules, we obtain the whole transformer architecture, as follows:
+An important notion introduced is the multi-head attention, which is using more scaled dot product attention, each one with different weights, and concatenating each output vectors.
+And this is the transformer encoder.
+
+Then, using a slightly modified version of the self-attention module, we obtain the decoder, which takes as input also the output sequence from encoder, and repeating the number of encoder and decoder modules, we obtain the whole transformer architecture, as follows:
 
 \begin{figure}[H]
     \centering
@@ -102,8 +105,8 @@ Then, using a slightly modified version of the self-attention module, the encode
     \label{fig:figure-transformer-architecture}
 \end{figure}
 
-With this architecture the new state-of-the-art results have been achieved in Natural Language Processing, especially in machine translation.
+With this architecture the new state-of-the-art results have been achieved in Natural Language Processing, especially in machine translation (a \gls{seq2seq} task).
 Then the adapted version applied to vision tasks also brought very good results, such as in object detection, image captioning, etc.
-% TODO aggiungere le nozioni su Maschera
 
-Another important notion is the mask, which is used in the auto-regressive models, such that
+Another important notion is the mask which is used in sequence-to-sequence models, such as the transformer more specifically in the decoder, to avoid the model to attend to the future tokens.
+To ensure this, the future positions are masked with $-\infty$ before the softmax step in the self-attention calculation.

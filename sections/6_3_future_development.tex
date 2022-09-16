@@ -7,7 +7,7 @@ An ideal loss function for this task should describe the error in a way that the
 
 Another problem is that we do not have a large amount of data, so we should create synthetic dataset which is more suitable for this task.
 For example, we can follow the approach adopted by Richter et al. (\cite{synthetic_dataset}), in this way we can create a dataset with a large number of images and poses.
-Then, use it for pre-training, then, use the real KITTI dataset for fine-tuning.
+Then, use it for pre-training, and finally, use the real KITTI dataset for fine-tuning.
 
 We should also try with a different feature extractor, because the ResNets are designed for the classification task, and the embedding produced describes the image as whole, losing local informations.
 The approach adopted by Dosovitsky et al. (\cite{vit_paper}), which consisted in split the image in smaller patches, then extract the embedding for each patch, and then combine them, could be a good solution.

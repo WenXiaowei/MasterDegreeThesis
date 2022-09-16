@@ -25,9 +25,8 @@ The visual odometry, then, can be divided in many categories, like in the follow
 Our solution will be a monocular, face-forward, non-conventional approach by using machine learning technique, in particular, a neural network based on transformer model.
 
 \subsection{Reference systems}\label{subsec:reference-systems}
-To tackle the problem of odometry, we need as to choose the representation system to adopt.
-There are many way of representing the pose of the camera or the robot, but the most common are the \textit{Euler angles}, \textit{roto-translation matrix}, \textit{quaternions} and \textit{homogeneous coordinates}.
-In the project we will use the first twos, the \textit{Euler angles} and the \textit{roto-transformation matrix}.
+To tackle the problem of odometry, we need to choose the representation system to adopt.
+There are many way of representing the pose of the camera or the robot, but the most common are the \textit{Euler angles} and \textit{roto-translation matrix}.
 The KITTI dataset provides the pose of the camera in the \textit{roto-transformation matrix} format flattened into a list of 12 numbers.
 
 \subsubsection*{Euler angles}
