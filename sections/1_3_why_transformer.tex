@@ -1,12 +1,14 @@
 \section{Why Transformer?}\label{sec:why-transformer}
 
-We think that the transformer is a good candidate to solve the problem of visual odometry because it is able to learn the sequence of images and the sequence of poses in a self-supervised way.
+We think that the transformer is a good candidate to solve the problem of visual odometry because it is able to learn a sequence from one domain and translate it into another sequence from another domain.
+This kind of task is called sequence-to-sequence translation, e.g., machine translation.
 
-Although, the transformer contrasts strongly with CNNs.
-Because in CNNs the features are statically weighted using pretrained weights, while in the transformer the features are dynamically weighted based on the context and receptive fields of individual network layers are typically local and limited by the convolutional kernel size.
+Traditionally, this task is tackled by using recurrent neural networks (RNNs), but they have some limitations, such as the vanishing gradient problem, which makes them difficult to train.
 
+Other VO approaches uses the CNNs, but in CNNs the features are statically weighted using pretrained weights, while in the transformer the features are dynamically weighted based on the context and receptive fields of CNNs can be limiting the performance of the whole network.
 The success of the CNN derives from the fact the shared weights explicitly encode how specific identical patterns are repeated in images, this ensures the convergence also in relatively small dataset, but also limits the modelling capacity.
-Meanwhile, the vision transformers do not enforce such strict bias.
-But in the same time, transformer has the higher learning capacity, but it's harder to train.
+Meaning that CNNs can converge to a good performance also with a relatively small dataset.
 
-So, given the high learning capacity of the transformer, and its capability to adapt to various tasks also for the fact that the transformer is a general purpose architecture, we think that its is a good candidate to solve the problem of visual odometry.
+Meanwhile, the vision transformers do not enforce such strict bias, so, transformer has the higher learning capacity, but it's harder to train.
+
+So, given the high learning capacity of the transformer, its capability to adapt to various tasks and its good ability in seq2seq translation, we think that its is a good candidate to solve the problem of visual odometry.
