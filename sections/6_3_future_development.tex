@@ -9,7 +9,9 @@ Another problem is that we do not have a large amount of data, so we should crea
 For example, we can follow the approach adopted by Richter et al. (\cite{synthetic_dataset}), in this way we can create a dataset with a large number of images and poses.
 Then, use it for pre-training, and finally, use the real KITTI dataset for fine-tuning.
 
-We should also try with a different feature extractor, because the ResNets are designed for the classification task, and the embedding produced describes the image as whole, losing local informations.
+We should also try with a different feature extractor, because the ResNets are designed for the classification task, and the embedding produced describes the image as whole, losing local information.
+This is because the use of pooling layers, which are used to guarantee the translation invariance of the network when performing the classification or object detection tasks.
+Meanwhile, for a task like VO this translation invariance is harmful, because it does not allow the network to learn the local features of the image.
 The approach adopted by Dosovitsky et al. (\cite{vit_paper}), which consisted in split the image in smaller patches, then extract the embedding for each patch, and then combine them, could be a good solution.
 
 Another experiment could be to change totally the feeding strategy, using a pair of images stacked together as did in many approaches, for example in ~\cite{deep_vo}.
