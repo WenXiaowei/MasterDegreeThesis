@@ -10,7 +10,7 @@ For the encoder-only model, in over-fitting with sequence 3, we can obtain a tra
     \label{fig:trajectory-3-encoder-only}
 \end{figure}
 
-After a few trials with encoder-decoder model, which produced some circular trajectories, feeding the \textit{sequence 3} of Kitti (for more details \S~\ref{sec:kitti}) where the first pose of the sequence is considered as origin, we showed that the model (with both 6 and 12 layers of encoder-decoder) is able to learn a single sequence in over-fitting, but fails when trying to over-fit a more complex sequence.
+After a few trials with encoder-decoder model, which produced some circular trajectories, feeding the \textit{sequence 3} of KITTI (for more details \S~\ref{sec:kitti}) where the first pose of the sequence is considered as origin, we showed that the model (with both 6 and 12 layers of encoder-decoder) is able to learn a single sequence in over-fitting, but fails when trying to over-fit a more complex sequence.
 The same model succeeded also in predicting the sequence 7, but failed when we combined the two sequences.
 It also fails when we try to over-fit the most complicate sequence, the sequence 0.
 \begin{figure}[H]

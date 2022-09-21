@@ -13,7 +13,7 @@ This division is because the first group uses the ground-truth without any prepr
 
 \subsection{Directly feeding the sequence}\label{subsec:directly-feeding-the-sequence}
 With this strategy, we create each sequence by taking the images from the dataset and the pose as ground-truth without any processing.
-For the sake of simplicity, to explain the different strategy, we will use an example of trajectory which is as represented in the Figure 4.6:
+For the sake of simplicity, to explain the different strategy, we will use an example of trajectory which is as represented in the Figure 4.7:
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/4_2_example_of_trajectory}
@@ -49,7 +49,7 @@ In this way, the sequences can be represented as follows:
 We can see that the sequences start from the origin, and the model has to learn only the relative pose to the first frame of the sequence, instead of the whole trajectory.
 But this solution is not perfect, in the sense that, in this trajectory we have eight image-pose pair, and with $seq_len = 4$ we can generate only two sequences, and considering that the Kitti dataset has about 20.000 images, this is a big problem.
 
-To solve the previous mentioned problem, we devised a slightly modified strategy, which essentially takes every image-pose pair and creates a sequence of length $seq\_len$, like represented in Figure 4.9:
+To solve the previous mentioned problem, we devised a slightly modified strategy, which essentially takes every image-pose pair and creates a sequence of length $seq\_len$, like represented in Figure 4.10:
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/4_2_split_traj_2}

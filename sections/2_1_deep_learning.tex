@@ -9,7 +9,7 @@ In recent years, the field of computer vision has been growing in complexity and
 
 The development of computer vision has been a long process, the growth is favoured by the development of new hardware components and new challenges, about the latters, we have
 CIFAR-10 (Doon et al.~\cite{cifar10_paper}), Fashion-MNIST(Xiao et al.~\cite{fashion_mnist_paper}), MS-Coco (Lin et al.~\cite{ms_coco_paper}) and ImageNet (Deng et al.~\cite{imagenet_paper}).
-These datasets are often used as benchmark for novel models.
+These datasets are often used as benchmark for novel approaches.
 
 For the architectures, starting from AlexNet (Krizhevsky et al.~\cite{alex_net_paper}), then VGG (Simonyan et al.~\cite{vgg_paper}), Inception-V1 (Szegedy et al.~\cite{inception_v1_paper}), Inception-V2 (Szegedy et al.~\cite{inception_v2_paper}), ResNet (He et al.~\cite{resnet_paper}), etc., the complexity of the models has increased enormously.
 Each of these models introduced some innovations and improved the performance on the benchmarks, for example:
@@ -32,15 +32,15 @@ Each of these models introduced some innovations and improved the performance on
 \end{itemize}
 After this, the computer-visionists lend the Transformer architecture (Vaswani et al.~\cite{transformer_paper}) from \gls{nlp}, bringing up ViT (Dosovitskiy et al.~\cite{vit_paper}) which is based on the \gls{mha} mechanism.
 A multi-head attention is a module of attention mechanisms repeated several times in parallel.
-In this way, the model can attend to different parts of the input, forming, in this way, the cross-attention over different parts of the input.
+In this way, the model can attend to different parts of the input, forming the cross-attention over different parts of the input.
 For major details, please refer to \hyperref[subsec:transformer]{\S2.1.2 Transformer}.
 
 
 \subsection{Convolutional Neural Network}\label{subsec:conv-neural-network}
 The \gls{cnn} is a class of artificial neural network, it is used in almost every imagery related task, such as image classification, object detection, image segmentation, etc.
 
-The CNN take an input image, assign importance (learnable weights and biases) and process the input image by using the convolution operation extracting features.
-There are two important parameter in the convolution operation, the kernel size and the stride.
+The CNN takes an input image, assign importance (learnable weights and biases) and process the input image by using the convolution operation extracting features.
+There are two important parameters in the convolution operation, the kernel size and the stride.
 The kernel is a matrix which is used to perform the convolution operation, the stride is the number of pixels the kernel slides each step over the input image to produce a new pixel of the output feature map.
 With stride, we can control the size of the output image, if the stride is equal to 1, the output image will have the same size of the input image, if the stride is equal to 2, the output image will have half the size of the input image.
 \begin{figure}[H]
@@ -59,6 +59,7 @@ For example, max-pooling is computed as showed in the image:
     \label{fig:figure-max-pooling}
 \end{figure}
 With stride = 2, sliding over the input feature map and taking the maximum value of the window, the dimensionality of the feature map is reduced.
+
 Another important component is the activation function, \gls{relu} is the most used one, it is defined as:
 \begin{equation}
     ReLU(x) = \max(0, x)
@@ -73,7 +74,7 @@ Currently, the most used CNN architecture is the ResNet which will be used in th
 The transformer architecture is a class of neural network architecture, born for the task of machine translation, but it has been used in many vision tasks.
 
 As introduced in ~\cite{transformer_paper}, the Transformer is a model architecture based entirely on attention mechanism.
-The first step of attention mechanism is to compute the Q, K and V vectors, by multiplying the input vector $x$ by the weight matrices $W_q$, $W_k$ and $W_v$.
+Which can be divided into different steps: the first step of attention mechanism is to compute the Q, K and V vectors, by multiplying the input vector $x$ by the weight matrices $W_q$, $W_k$ and $W_v$.
 Then, the attention weights are computed by using the scaled dot product attention, which is the softmax of the dot product between the query and the key vectors divided by the square root of the dimensionality of the key vector.
 Finally, the attention weights are multiplied by the value vector to obtain the output vector.
 The output vector is then passed through a feed-forward neural network, which is composed by two linear layers with ReLU activation function, added to the input vector and normalized by the layer normalization.
@@ -101,7 +102,7 @@ Then, using a slightly modified version of the self-attention module, we obtain 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{./images/2_transformer}
-    \caption{Transformer architecture: the encoder and decoder modules are composed by a self-attention module and a feed-forward neural network repeated $N$ times.}
+    \caption[Transformer architecture]{Transformer architecture: the encoder and decoder modules are composed by a self-attention module and a feed-forward neural network repeated $N$ times.}
     \label{fig:figure-transformer-architecture}
 \end{figure}
 

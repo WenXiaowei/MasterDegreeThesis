@@ -6,7 +6,7 @@
 \section{Synthetic}\label{sec:synthetic}
 %**************************************************************
 
-As in there are few real-life datasets for visual odometry, we decided to create a synthetic dataset by using BlenderProc2 framework,
+As there are few real-life datasets for visual odometry, we decided to create a synthetic dataset by using BlenderProc2 framework,
 which is a procedural photo-realistic rendering framework, and it allows to:
 \begin{itemize}
     \item \textbf{Loading}: *\textit{.obj}, *\textit{.ply}, *\textit{.blend}, \textit{BOP}, \textit{ShapeNet} etc.
@@ -62,15 +62,14 @@ def check_pose(c2w_m, special_obj, bvh_tree):
 
 
 But when the new position is too far away from the old position, the rotation of the camera assumes a wrong value during the transition, because it rotates counter-clockwise instead of clockwise, or vice-versa.
-For example:
-If we sample the camera position from a disk at 0, 90, 180, 270 degrees, the rotations should be as in the figure 3.1:
+For example: if we sample the camera position from a disk at 0, 90, 180, 270 degrees, the rotations should be as in the figure 3.5:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{images/3_correct_transitions}
     \caption{Correct transition on the disk}\label{fig:correct-transition}
 \end{figure}
 
-But, the transition from 180 to 270 degrees we obtain is a wrong rotation which is like in figure 3.2:
+But, the transition from 180 to 270 degrees we obtain is a wrong rotation which is like in figure 3.6:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{images/3_wrong_transitions}
@@ -98,3 +97,4 @@ Each image has dimension of 1024x308 pixels with 3 RGB channels.
 The whole dateset has dimension \textbf{1.69 GB}.
 \subsection{Usage}\label{subsec:usage}
 By using the dataset at training time the loss function is highly variable reaching values of \textbf{thousands}, also because the \textbf{Kitti} dataset is much fluid as the trajectory and the camera rotation angles are very small, so, the sequences generated are not similar to the real dataset.
+For this reason, we decided to not using this dataset.

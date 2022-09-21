@@ -37,7 +37,7 @@ The auto-encoder is split into two parts: first part brings the dimensionality f
 
 In the Figure 4.3, we can see how the auto-encoder is split in two parts.
 
-We used the first part to create the ground-truth of the pose, the second part to get the prediction of the pose from 512 or 2048 dimensionality.
+We used the first part to create the ground-truth embedding of the pose, the second part to get the prediction of the pose from 512 or 2048 dimensionality.
 So, the final structure of the model is shown in Figure 4.4.
 \begin{figure}[H]
     \centering
@@ -54,10 +54,10 @@ In this model, we replaced the parameter vector \textit{memory} with the output 
     \caption{Auto-regressive mode: training time.}\label{fig:figure-auto-regressive-train}
 \end{figure}
 
-In the figure 4.5, we can see the architecture of this model at \textbf{training time},where the memory comes from the encoder, then, we construct the target by using the learnable vector as the upper-triangle of the target, and the embedding of the ground-truth as the lower-triangle of the target.
-For the \textbf{inference time}, where we need to predict the pose one by one, starting from the second pose because the first one origin, in the figure 4.6, we can see the workflow of the model.
+In the figure 4.5, we can see the architecture of this model at \textbf{training time}, where the memory comes from the encoder, then, we construct the target by using the learnable vector as the upper-triangle of the target, and the embedding of the ground-truth as the lower-triangle of the target.
+For the \textbf{inference time}, where we need to predict the pose one by one, starting from the second pose because the first one is the origin, in the figure 4.6, we can see the workflow of the model.
 At first step of prediction, where we have to predict the second pose, we use the target which is composed like: $[origin\_emb, learnable\_vector[1\colon-1]]$ , for next step,
-we will use: $[origin\_emb, first\_prediction, learnable\_vector[2\colon-1]]$, and so on so forth.
+we will use: $[origin\_emb, first\_prediction, learnable\_vector[2\colon-1]]$, then $[origin\_emb, first\_prediction, second\_prediction, learnable\_vector[3\colon-1]]$, and so on so forth.
 Meanwhile, the memory is not changed.
 
 \begin{figure}[H]

@@ -78,7 +78,7 @@ def _inference_target(self, predictions, column_index):
     return torch.cat((predictions[:column_index, :], self.learnable_target[column_index:, :]), dim=0)
 \end{lstlisting}
 
-The the code for inference is the following the one shown in \textbf{Code xx}.
+The code for inference is the following the one shown in \textbf{Code 5.5}.
 \begin{lstlisting}[captionpos=b, label={lst:lst-inference}, caption={Inference}, language=Python]
 predictions = torch.zeros_like(x)
 predictions[:, 0, :] = gt_target  # embedding of the origin
