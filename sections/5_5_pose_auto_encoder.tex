@@ -1,4 +1,4 @@
-\section{Pose Auto-encoder}\label{sec:pose-auto-encoder}
+\section{Pose auto-encoder}\label{sec:pose-auto-encoder}
 Pose encoder structure is very simple, it takes as input the pose, and it outputs the same pose.
 We devised this a MLP can be get in input the pose, and it can reproduce the same poses with small margin of error.
 In fact, we discovered that with \hyperref[subsec:directly-feeding-the-sequence]{\S4.2.1 Experiments - Feeding strategies}, the auto-encoder really struggles to reduce the loss, MSE in this case, the reason is that the network is required to output a very large range of values.

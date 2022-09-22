@@ -23,7 +23,7 @@ There are also some optional parameter, like the \textit{src\_key\_padding\_mask
 
 Finally, depending on different version of the model we introduced in \hyperref[subsec:models]{\S4.1 Experiments - Models}, we used different MLP to predict the pose.
 
-\subsection{Auto-regressive Model}\label{subsec:auto-regressive-model}
+\subsection{Auto-regressive model}\label{subsec:auto-regressive-model}
 What we want to do is to predict the future poses of the sequence, given the past poses.
 In details, we want to predict the pose at time $t_i$, given the poses at time $t_0, t_1, \dots, t_{-i-1}$.
 To do this, we should treat the training time and the inference time differently.

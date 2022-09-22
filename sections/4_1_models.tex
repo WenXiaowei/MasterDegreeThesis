@@ -26,7 +26,7 @@ The structure of the network is shown in figure 4.2.
     \caption{Encoder-Decoder transformer}\label{fig:figure-encoder-decoder-transformer}
 \end{figure}
 
-\subsection{Encoder-Decoder with Auto-encoder}\label{subsec:encoder-decoder-with-auto-encoder}
+\subsection{Encoder-Decoder with auto-encoder}\label{subsec:encoder-decoder-with-auto-encoder}
 In this version of the model, we used the same encoder-decoder model of the previous section, but we added a pose auto-encoder, which given the ground-truth of the pose, it increases the dimensionality of the input to 512 or 2048 and back to the original dimensionality.
 The auto-encoder is split into two parts: first part brings the dimensionality from $x$ to 512 and 2048, the second part brings the dimensionality back to $x$, with $x$ depending on the representation format (6 for euler angles, and 12 for roto-translation matrix).
 \begin{figure}[H]
